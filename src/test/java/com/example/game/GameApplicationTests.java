@@ -10,4 +10,10 @@ class GameApplicationTests {
 	void contextLoads() {
 	}
 
+	@Test
+	void myTest() {
+		String result = "Goodbye";
+		assert(result.equals("Goodbye"));
+	}
+
 }
