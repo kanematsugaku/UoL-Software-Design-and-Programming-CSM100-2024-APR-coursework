@@ -47,10 +47,30 @@ public class GameApplication implements CommandLineRunner {
         try {
             messageService.showWelcomeMessage();
 
-            // Startup phase
+            // -----------------
+            // 1. Startup phase
+            // -----------------
             this.map = mapInitService.init(scanner);
             this.players = playerInitService.init(scanner);
             countryPlayerAssignService.assign(map, players);
+
+            // -------------------
+            // 2. Turn-based play
+            // -------------------
+
+            // 2-1. The reinforcement phase
+            // TODO: Implement
+
+            // 2-2. The attack phase
+            // TODO: Implement
+
+            // 2-3. The fortification phase
+            // TODO: Implement
+
+            // ---------------
+            // 3. The endgame
+            // ---------------
+
         } catch (Exception e) {
             messageService.showExceptionMessage(e);
         } finally {
