@@ -32,3 +32,8 @@ tasks.named('test') {
 bootRun {
     standardInput = System.in
 }
+
+// Disable unnecessary plain-jar file generation
+jar {
+    enabled = false
+}
