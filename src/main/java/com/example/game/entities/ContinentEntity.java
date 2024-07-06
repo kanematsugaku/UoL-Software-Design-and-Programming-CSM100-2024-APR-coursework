@@ -11,6 +11,12 @@ public class ContinentEntity {
     private final int armyValue;
     private final String color;
 
+    /**
+     * @param id the id of the continent
+     * @param name the name of the continent
+     * @param armyValue the army value of the continent
+     * @param color the color of the continent
+     */
     public ContinentEntity(int id, String name, int armyValue, String color) {
         this.id = id;
         this.name = name;
@@ -18,18 +24,30 @@ public class ContinentEntity {
         this.color = color;
     }
 
+    /**
+     * @return the id of the continent
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * @return the name of the continent
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return the army value of the continent
+     */
     public int getArmyValue() {
         return armyValue;
     }
 
+    /**
+     * @return the color of the continent
+     */
     public String getColor() {
         return color;
     }

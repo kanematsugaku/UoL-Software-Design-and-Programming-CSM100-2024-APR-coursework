@@ -19,26 +19,51 @@ public class MapEntity {
     private List<CountryEntity> countries = new ArrayList<>();
     private List<BorderEntity> borders = new ArrayList<>();
 
+    private enum MapAttribute {
+        Name, Files, Continents, Countries, Borders,
+    }
+
+    /**
+     * @return the name of the map
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @return the files of the map
+     */
     public List<String> getFiles() {
         return files;
     }
 
+    /**
+     * @return the continents of the map
+     */
     public List<ContinentEntity> getContinents() {
         return continents;
     }
 
+    /**
+     * @return the countries of the map
+     */
     public List<CountryEntity> getCountries() {
         return countries;
     }
 
+    /**
+     * @return the borders of the map
+     */
     public List<BorderEntity> getBorders() {
         return borders;
     }
 
+    /**
+     * Loads the map from a file
+     *
+     * @param mapFile the map file
+     * @throws Exception if an error occurs
+     */
     public void load(File mapFile) throws Exception {
         List<String> mapFileLines = new ArrayList<>();
 
@@ -111,7 +136,25 @@ public class MapEntity {
         }
     }
 
-    private enum MapAttribute {
-        Name, Files, Continents, Countries, Borders,
+    /**
+     * Gets the countries of a player
+     *
+     * @param player the player
+     * @return the countries owned by the player
+     */
+    public List<CountryEntity> getPlayerCountries(PlayerEntity player) {
+        return countries.stream().filter(country -> country.getPlayerId() == player.getId())
+                .toList();
+    }
+
+    /**
+     * Gets the countries of a continent
+     *
+     * @param continent the continent
+     * @return the countries of the continent
+     */
+    public List<CountryEntity> getContinentCountries(ContinentEntity continent) {
+        return countries.stream().filter(country -> country.getContinentId() == continent.getId())
+                .toList();
     }
 }

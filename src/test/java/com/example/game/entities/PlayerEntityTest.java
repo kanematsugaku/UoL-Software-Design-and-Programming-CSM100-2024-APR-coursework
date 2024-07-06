@@ -49,4 +49,10 @@ class PlayerEntityTest {
     void testGetType() {
         assertEquals(TYPE, playerEntity.getType());
     }
+
+    @Test
+    void testAddArmyCount() {
+        playerEntity.addArmyCount(1);
+        assertEquals(ARMY_COUNT + 1, playerEntity.getArmyCount());
+    }
 }

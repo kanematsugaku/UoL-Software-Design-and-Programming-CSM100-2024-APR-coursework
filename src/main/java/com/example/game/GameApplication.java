@@ -12,6 +12,7 @@ import com.example.game.services.interfaces.CountryPlayerAssignService;
 import com.example.game.services.interfaces.MapInitService;
 import com.example.game.services.interfaces.MessageService;
 import com.example.game.services.interfaces.PlayerInitService;
+import com.example.game.services.interfaces.ReinforcementService;
 
 /**
  * The entry point class for the game application.
@@ -25,15 +26,19 @@ public class GameApplication implements CommandLineRunner {
     private final MapInitService mapInitService;
     private final PlayerInitService playerInitService;
     private final CountryPlayerAssignService countryPlayerAssignService;
+    private final ReinforcementService reinforcementService;
+    private boolean isGameEnded = false;
 
     @Autowired
     public GameApplication(MessageService messageService, MapInitService mapInitService,
             PlayerInitService playerInitService,
-            CountryPlayerAssignService countryPlayerAssignService) {
+            CountryPlayerAssignService countryPlayerAssignService,
+            ReinforcementService reinforcementService) {
         this.messageService = messageService;
         this.mapInitService = mapInitService;
         this.playerInitService = playerInitService;
         this.countryPlayerAssignService = countryPlayerAssignService;
+        this.reinforcementService = reinforcementService;
     }
 
     public static void main(String[] args) {
@@ -57,15 +62,18 @@ public class GameApplication implements CommandLineRunner {
             // -------------------
             // 2. Turn-based play
             // -------------------
+            while (!isGameEnded) {
+                // 2-1. The reinforcement phase
+                for (PlayerEntity player : this.players) {
+                    reinforcementService.reinforce(player, map);
+                }
 
-            // 2-1. The reinforcement phase
-            // TODO: Implement
+                // 2-2. The attack phase
+                // TODO: Implement
 
-            // 2-2. The attack phase
-            // TODO: Implement
-
-            // 2-3. The fortification phase
-            // TODO: Implement
+                // 2-3. The fortification phase
+                // TODO: Implement
+            }
 
             // ---------------
             // 3. The endgame
