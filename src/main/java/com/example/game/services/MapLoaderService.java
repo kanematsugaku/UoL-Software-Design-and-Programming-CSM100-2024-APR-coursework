@@ -6,10 +6,19 @@ import org.springframework.stereotype.Service;
 import com.example.game.entities.MapEntity;
 import com.example.game.util.PrintUtil;
 
+/**
+ * The service for loading maps from the text map files.
+ */
 @Service
 public class MapLoaderService {
     private static final String MAPS_FOLDER_PATH = "src/main/resources/static/maps";
 
+    /**
+     * Load a map from the text map file then set the loaded value to the map entity
+     *
+     * @param mapEntity
+     * @throws Exception
+     */
     public void load(MapEntity mapEntity) throws Exception {
         File folder = new File(MAPS_FOLDER_PATH);
         File[] listOfFiles = folder.listFiles();

@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This entity represents a map.
+ * The entity represents a map.
  *
  * For more information see: https://domination.sourceforge.io/makemaps.shtml
  */

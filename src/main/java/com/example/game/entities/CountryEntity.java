@@ -1,9 +1,9 @@
 package com.example.game.entities;
 
 /**
- * This entity represents a country in the map.
+ * The entity represents a country in the map.
  *
- * For more information see: https://domination.sourceforge.io/makemaps.shtml
+ * For more information about fields see: https://domination.sourceforge.io/makemaps.shtml
  */
 public class CountryEntity {
     public int id;

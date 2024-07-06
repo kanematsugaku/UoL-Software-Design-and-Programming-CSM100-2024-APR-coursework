@@ -1,9 +1,9 @@
 package com.example.game.entities;
 
 /**
- * This entity represents a border between two countries in the map.
+ * The entity represents a border between two countries in the map.
  *
- * For more information see: https://domination.sourceforge.io/makemaps.shtml
+ * For more information about fields see: https://domination.sourceforge.io/makemaps.shtml
  */
 public class BorderEntity {
     public int countryId;

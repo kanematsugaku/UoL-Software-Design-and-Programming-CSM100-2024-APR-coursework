@@ -9,6 +9,9 @@ import com.example.game.services.MapLoaderService;
 import com.example.game.services.MessageService;
 import com.example.game.util.PrintUtil;
 
+/**
+ * The entry point class for the game application.
+ */
 @SpringBootApplication
 public class GameApplication implements CommandLineRunner {
 
