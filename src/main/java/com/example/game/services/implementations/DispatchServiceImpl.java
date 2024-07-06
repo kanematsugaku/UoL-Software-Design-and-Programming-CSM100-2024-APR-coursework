@@ -1,6 +1,7 @@
 package com.example.game.services.implementations;
 
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import org.springframework.stereotype.Service;
 import com.example.game.entities.CountryEntity;
@@ -35,30 +36,51 @@ public class DispatchServiceImpl implements DispatchService {
 
         // Dispatch armies to countries manually by the player.
         while (player.getArmyCount() > 0) {
-            PrintUtil.printLine("You have " + player.getArmyCount() + " armies for dispatch.");
-            PrintUtil.printLine("You have the following countries:");
-            for (CountryEntity country : playerCountries) {
-                PrintUtil.printLine(country.getId() + ": " + country.getName() + " ("
-                        + country.getArmyCount() + " armies)");
+            if (player.getType() == PlayerEntity.PlayerType.Human) {
+                dispatchManually(scanner, player, map);
+            } else {
+                dispatchAutomatically(player, map);
             }
-
-            PrintUtil.printLine("Enter the number of country to dispatch 1 army to:");
-            int countryId = scanner.nextInt();
-
-            CountryEntity country = map.getCountryById(countryId);
-            if (!playerCountries.contains(country)) {
-                PrintUtil.printLine("Invalid country number.");
-                continue;
-            }
-
-            country.incrementArmyCount();
-            player.decrementArmyCount();
         }
 
-        PrintUtil.printLine("Dispatch complete. Now your countries are:");
+        PrintUtil.printLine("Dispatch complete. " + player.getName() + "'s countries are:");
         for (CountryEntity country : playerCountries) {
             PrintUtil.printLine(country.getId() + ": " + country.getName() + " ("
                     + country.getArmyCount() + " armies)");
         }
+    }
+
+    void dispatchManually(Scanner scanner, PlayerEntity player, MapEntity map) {
+        List<CountryEntity> playerCountries = map.getPlayerCountries(player);
+
+        PrintUtil.printLine("You have " + player.getArmyCount() + " armies for dispatch.");
+        PrintUtil.printLine("You have the following countries:");
+        for (CountryEntity country : playerCountries) {
+            PrintUtil.printLine(country.getId() + ": " + country.getName() + " ("
+                    + country.getArmyCount() + " armies)");
+        }
+
+        PrintUtil.printLine("Enter the number of country to dispatch 1 army to:");
+        int countryId = scanner.nextInt();
+
+        CountryEntity country = map.getCountryById(countryId);
+        if (!playerCountries.contains(country)) {
+            PrintUtil.printLine("Invalid country number.");
+            return;
+        }
+
+        country.incrementArmyCount();
+        player.decrementArmyCount();
+    }
+
+    void dispatchAutomatically(PlayerEntity player, MapEntity map) {
+        List<CountryEntity> playerCountries = map.getPlayerCountries(player);
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(playerCountries.size());
+        CountryEntity randomCountry = playerCountries.get(randomIndex);
+
+        randomCountry.incrementArmyCount();
+        player.decrementArmyCount();
     }
 }
