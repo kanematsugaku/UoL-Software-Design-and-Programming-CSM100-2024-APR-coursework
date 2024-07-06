@@ -26,3 +26,9 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// Enable to receive input from command line with Spring Boot
+// https://stackoverflow.com/questions/56358562/receive-input-from-command-line-with-spring-boot#answer-56362411
+bootRun {
+    standardInput = System.in
+}
