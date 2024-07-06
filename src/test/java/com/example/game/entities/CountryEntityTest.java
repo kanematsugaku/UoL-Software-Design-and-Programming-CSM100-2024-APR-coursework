@@ -55,4 +55,16 @@ class CountryEntityTest {
     void testGetYCoordinate() {
         assertEquals(Y_COORDINATE, countryEntity.getYCoordinate());
     }
+
+    @Test
+    void testGetPlayerId() {
+        assertEquals(null, countryEntity.getPlayerId());
+    }
+
+    @Test
+    void testSetPlayerId() {
+        var playerId = 1;
+        countryEntity.setPlayerId(playerId);
+        assertEquals(playerId, countryEntity.getPlayerId());
+    }
 }

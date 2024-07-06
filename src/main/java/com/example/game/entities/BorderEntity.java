@@ -6,8 +6,8 @@ package com.example.game.entities;
  * For more information about fields see: https://domination.sourceforge.io/makemaps.shtml
  */
 public class BorderEntity {
-    private int countryId;
-    private int[] adjacentCountryIds;
+    private final int countryId;
+    private final int[] adjacentCountryIds;
 
     public BorderEntity(int countryId, int... adjacentCountryIds) {
         this.countryId = countryId;

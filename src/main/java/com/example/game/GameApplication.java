@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.example.game.entities.MapEntity;
 import com.example.game.entities.PlayerEntity;
+import com.example.game.services.interfaces.CountryPlayerAssignService;
 import com.example.game.services.interfaces.MapInitService;
 import com.example.game.services.interfaces.MessageService;
 import com.example.game.services.interfaces.PlayerInitService;
@@ -23,13 +24,16 @@ public class GameApplication implements CommandLineRunner {
     private final MessageService messageService;
     private final MapInitService mapInitService;
     private final PlayerInitService playerInitService;
+    private final CountryPlayerAssignService countryPlayerAssignService;
 
     @Autowired
     public GameApplication(MessageService messageService, MapInitService mapInitService,
-            PlayerInitService playerInitService) {
+            PlayerInitService playerInitService,
+            CountryPlayerAssignService countryPlayerAssignService) {
         this.messageService = messageService;
         this.mapInitService = mapInitService;
         this.playerInitService = playerInitService;
+        this.countryPlayerAssignService = countryPlayerAssignService;
     }
 
     public static void main(String[] args) {
@@ -45,7 +49,8 @@ public class GameApplication implements CommandLineRunner {
 
             // Startup phase
             this.map = mapInitService.init(scanner);
-            this.players = playerInitService.init(scanner, 2);
+            this.players = playerInitService.init(scanner);
+            countryPlayerAssignService.assign(map, players);
         } catch (Exception e) {
             messageService.showExceptionMessage(e);
         } finally {

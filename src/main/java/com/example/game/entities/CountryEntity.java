@@ -6,11 +6,12 @@ package com.example.game.entities;
  * For more information about fields see: https://domination.sourceforge.io/makemaps.shtml
  */
 public class CountryEntity {
-    private int id;
-    private String name;
-    private int continentId;
-    private int xCoordinate;
-    private int yCoordinate;
+    private final int id;
+    private final String name;
+    private final int continentId;
+    private final int xCoordinate;
+    private final int yCoordinate;
+    private Integer playerId;
 
     public CountryEntity(int id, String name, int continentId, int xCoordinate, int yCoordinate) {
         this.id = id;
@@ -18,6 +19,7 @@ public class CountryEntity {
         this.continentId = continentId;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
+        this.playerId = null;
     }
 
     public int getId() {
@@ -38,5 +40,13 @@ public class CountryEntity {
 
     public int getYCoordinate() {
         return yCoordinate;
+    }
+
+    public Integer getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 }

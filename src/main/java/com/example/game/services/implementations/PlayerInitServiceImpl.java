@@ -18,10 +18,22 @@ public class PlayerInitServiceImpl implements PlayerInitService {
      * Initializes the players.
      *
      * @param scanner The scanner.
-     * @param playerCount The number of players.
      * @return The list of player entities.
      */
-    public List<PlayerEntity> init(Scanner scanner, int playerCount) {
+    public List<PlayerEntity> init(Scanner scanner) {
+        int playerCount = 0;
+        boolean isPlayerCountValid = false;
+
+        while (!isPlayerCountValid) {
+            PrintUtil.printLine("Enter the number of players: ");
+            playerCount = scanner.nextInt();
+            if (playerCount == 2) {
+                isPlayerCountValid = true;
+            } else {
+                PrintUtil.printLine("Currently, only 2 players are supported.");
+            }
+        }
+
         List<PlayerEntity> players = new ArrayList<>();
 
         for (int i = 0; i < playerCount; i++) {
@@ -38,7 +50,7 @@ public class PlayerInitServiceImpl implements PlayerInitService {
                 }
             }
 
-            PlayerEntity player = new PlayerEntity(playerName, 40);
+            PlayerEntity player = new PlayerEntity(i, playerName, 40);
             players.add(player);
         }
 

@@ -6,10 +6,10 @@ package com.example.game.entities;
  * For more information about fields see: https://domination.sourceforge.io/makemaps.shtml
  */
 public class ContinentEntity {
-    private int id;
-    private String name;
-    private int armyValue;
-    private String color;
+    private final int id;
+    private final String name;
+    private final int armyValue;
+    private final String color;
 
     public ContinentEntity(int id, String name, int armyValue, String color) {
         this.id = id;

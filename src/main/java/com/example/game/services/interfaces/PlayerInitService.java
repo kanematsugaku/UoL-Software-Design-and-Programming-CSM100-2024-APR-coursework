@@ -5,5 +5,5 @@ import java.util.Scanner;
 import com.example.game.entities.PlayerEntity;
 
 public interface PlayerInitService {
-    List<PlayerEntity> init(Scanner scanner, int playerCount);
+    List<PlayerEntity> init(Scanner scanner);
 }
