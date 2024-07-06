@@ -14,8 +14,8 @@ public class BorderEntityTest {
 
         var entity = new BorderEntity(countryId, adjacentCountryId);
 
-        assertEquals(countryId, entity.countryId);
-        assertEquals(adjacentCountryId, entity.adjacentCountryIds[0]);
+        assertEquals(countryId, entity.getCountryId());
+        assertEquals(adjacentCountryId, entity.getAdjacentCountryIds()[0]);
     }
 
     @Test
@@ -28,9 +28,9 @@ public class BorderEntityTest {
         var entity = new BorderEntity(countryId, adjacentCountryId1, adjacentCountryId2,
                 adjacentCountryId3);
 
-        assertEquals(countryId, entity.countryId);
-        assertEquals(adjacentCountryId1, entity.adjacentCountryIds[0]);
-        assertEquals(adjacentCountryId2, entity.adjacentCountryIds[1]);
-        assertEquals(adjacentCountryId3, entity.adjacentCountryIds[2]);
+        assertEquals(countryId, entity.getCountryId());
+        assertEquals(adjacentCountryId1, entity.getAdjacentCountryIds()[0]);
+        assertEquals(adjacentCountryId2, entity.getAdjacentCountryIds()[1]);
+        assertEquals(adjacentCountryId3, entity.getAdjacentCountryIds()[2]);
     }
 }

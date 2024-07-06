@@ -14,7 +14,7 @@ class PlayerEntityTest {
 
         var entity = new PlayerEntity(name, armyCount);
 
-        assertEquals(name, entity.name);
-        assertEquals(armyCount, entity.armyCount);
+        assertEquals(name, entity.getName());
+        assertEquals(armyCount, entity.getArmyCount());
     }
 }

@@ -42,7 +42,7 @@ public class PlayerInitService {
         }
 
         for (int i = 0; i < players.size(); i++) {
-            PrintUtil.printLine("Player " + (i + 1) + " name: " + players.get(i).name);
+            PrintUtil.printLine("Player " + (i + 1) + " name: " + players.get(i).getName());
         }
 
         return Collections.unmodifiableList(new ArrayList<>(players));

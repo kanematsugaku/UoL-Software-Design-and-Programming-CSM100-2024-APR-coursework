@@ -17,10 +17,10 @@ class CountryEntityTest {
 
         var entity = new CountryEntity(id, name, continentId, xCoordinate, yCoordinate);
 
-        assertEquals(id, entity.id);
-        assertEquals(name, entity.name);
-        assertEquals(continentId, entity.continentId);
-        assertEquals(xCoordinate, entity.xCoordinate);
-        assertEquals(yCoordinate, entity.yCoordinate);
+        assertEquals(id, entity.getId());
+        assertEquals(name, entity.getName());
+        assertEquals(continentId, entity.getContinentId());
+        assertEquals(xCoordinate, entity.getXCoordinate());
+        assertEquals(yCoordinate, entity.getYCoordinate());
     }
 }

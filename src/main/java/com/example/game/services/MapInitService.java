@@ -56,7 +56,7 @@ public class MapInitService {
 
         MapEntity mapEntity = new MapEntity();
         mapEntity.load(selectedFile);
-        PrintUtil.printLine("Map name: " + mapEntity.name);
+        PrintUtil.printLine("Map name: " + mapEntity.getName());
 
         return mapEntity;
     }

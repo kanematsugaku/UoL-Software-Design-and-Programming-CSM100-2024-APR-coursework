@@ -13,11 +13,31 @@ import java.util.List;
  * For more information see: https://domination.sourceforge.io/makemaps.shtml
  */
 public class MapEntity {
-    public String name;
-    public List<String> files = new ArrayList<>();
-    public List<ContinentEntity> continents = new ArrayList<>();
-    public List<CountryEntity> countries = new ArrayList<>();
-    public List<BorderEntity> borders = new ArrayList<>();
+    private String name;
+    private List<String> files = new ArrayList<>();
+    private List<ContinentEntity> continents = new ArrayList<>();
+    private List<CountryEntity> countries = new ArrayList<>();
+    private List<BorderEntity> borders = new ArrayList<>();
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getFiles() {
+        return files;
+    }
+
+    public List<ContinentEntity> getContinents() {
+        return continents;
+    }
+
+    public List<CountryEntity> getCountries() {
+        return countries;
+    }
+
+    public List<BorderEntity> getBorders() {
+        return borders;
+    }
 
     public void load(File mapFile) throws Exception {
         List<String> mapFileLines = new ArrayList<>();

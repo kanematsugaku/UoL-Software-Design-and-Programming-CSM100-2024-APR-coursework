@@ -16,9 +16,9 @@ class ContinentEntityTest {
 
         var entity = new ContinentEntity(id, name, armyValue, color);
 
-        assertEquals(id, entity.id);
-        assertEquals(name, entity.name);
-        assertEquals(armyValue, entity.armyValue);
-        assertEquals(color, entity.color);
+        assertEquals(id, entity.getId());
+        assertEquals(name, entity.getName());
+        assertEquals(armyValue, entity.getArmyValue());
+        assertEquals(color, entity.getColor());
     }
 }
