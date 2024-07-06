@@ -13,7 +13,7 @@ Please note that when the due date is reached, the version you submitted last wi
 
 **_Commands_**
 
-_Run for Development_
+_Debug_
 
 ```sh
 ./gradlew bootRun
@@ -32,12 +32,15 @@ _Build_
 ./gradlew clean
 # Build the project
 ./gradlew build
+
+# Copy the jar file to the root directory as "game.jar"
+cp build/libs/game-0.0.1-SNAPSHOT.jar ./game.jar
 ```
 
 _Run the built jar file_
 
 ```sh
-java -jar build/libs/game-0.0.1-SNAPSHOT.jar
+java -jar game.jar
 ```
 
 ---
