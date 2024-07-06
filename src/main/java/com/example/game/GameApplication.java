@@ -8,9 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.example.game.entities.MapEntity;
 import com.example.game.entities.PlayerEntity;
-import com.example.game.services.MapInitService;
-import com.example.game.services.MessageService;
-import com.example.game.services.PlayerInitService;
+import com.example.game.services.interfaces.MapInitService;
+import com.example.game.services.interfaces.MessageService;
+import com.example.game.services.interfaces.PlayerInitService;
 
 /**
  * The entry point class for the game application.
