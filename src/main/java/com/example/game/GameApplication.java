@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import com.example.game.entities.MapEntity;
 import com.example.game.services.MapLoaderService;
 import com.example.game.services.MessageService;
+import com.example.game.util.PrintUtil;
 
 @SpringBootApplication
 public class GameApplication implements CommandLineRunner {
@@ -27,7 +29,11 @@ public class GameApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         try {
             messageService.showWelcomeMessage();
-            mapLoaderService.loadMap();
+
+            var mapEntity = new MapEntity();
+            mapLoaderService.load(mapEntity);
+            PrintUtil.printLine("Map name: " + mapEntity.name);
+
             messageService.showClosingMessage();
         } catch (Exception e) {
             messageService.showExceptionMessage(e);

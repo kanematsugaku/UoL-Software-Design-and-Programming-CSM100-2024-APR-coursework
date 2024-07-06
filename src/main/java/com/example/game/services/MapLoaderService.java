@@ -1,18 +1,17 @@
 package com.example.game.services;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 import org.springframework.stereotype.Service;
+import com.example.game.entities.MapEntity;
 import com.example.game.util.PrintUtil;
 
 @Service
 public class MapLoaderService {
     private static final String MAPS_FOLDER_PATH = "src/main/resources/static/maps";
 
-    public void loadMap() throws Exception {
+    public void load(MapEntity mapEntity) throws Exception {
         File folder = new File(MAPS_FOLDER_PATH);
         File[] listOfFiles = folder.listFiles();
 
@@ -27,6 +26,8 @@ public class MapLoaderService {
             }
         }
 
+        File selectedFile = null;
+
         try (Scanner scanner = new Scanner(System.in)) {
             PrintUtil.printLine("Enter the number of the map you want to play: ");
             int mapNumber = scanner.nextInt();
@@ -35,19 +36,14 @@ public class MapLoaderService {
                 throw new Exception("Invalid map number.");
             }
 
-            File selectedFile = listOfFiles[mapNumber];
+            selectedFile = listOfFiles[mapNumber];
             PrintUtil.printLine("Loading map number " + mapNumber + ": " + selectedFile.getName());
-
-            try (BufferedReader br = new BufferedReader(new FileReader(selectedFile))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    PrintUtil.printLine(line);
-                }
-            } catch (IOException e) {
-                PrintUtil.printLine("Error reading the map file.");
-                e.printStackTrace();
-                throw e;
-            }
+        } catch (IOException e) {
+            PrintUtil.printLine("Error reading the map file.");
+            e.printStackTrace();
+            throw e;
         }
+
+        mapEntity.load(selectedFile);
     }
 }
