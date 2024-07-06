@@ -7,11 +7,13 @@ public class PlayerEntity {
     private final int id;
     private final String name;
     private int armyCount;
+    private PlayerType type;
 
-    public PlayerEntity(int id, String name, int armyCount) {
+    public PlayerEntity(int id, String name, int armyCount, PlayerType type) {
         this.id = id;
         this.name = name;
         this.armyCount = armyCount;
+        this.type = type;
     }
 
     public int getId() {
@@ -24,5 +26,13 @@ public class PlayerEntity {
 
     public int getArmyCount() {
         return armyCount;
+    }
+
+    public PlayerType getType() {
+        return type;
+    }
+
+    public enum PlayerType {
+        Human, AI,
     }
 }

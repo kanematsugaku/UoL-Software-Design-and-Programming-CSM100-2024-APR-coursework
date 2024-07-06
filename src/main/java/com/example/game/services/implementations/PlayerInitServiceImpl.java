@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 import org.springframework.stereotype.Service;
 import com.example.game.entities.PlayerEntity;
+import com.example.game.entities.PlayerEntity.PlayerType;
 import com.example.game.services.interfaces.PlayerInitService;
 import com.example.game.util.PrintUtil;
 
@@ -50,7 +51,8 @@ public class PlayerInitServiceImpl implements PlayerInitService {
                 }
             }
 
-            PlayerEntity player = new PlayerEntity(i, playerName, 40);
+            PlayerType type = i == 0 ? PlayerType.Human : PlayerType.AI;
+            PlayerEntity player = new PlayerEntity(i, playerName, 40, type);
             players.add(player);
         }
 
