@@ -1,26 +1,58 @@
 package com.example.game.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class CountryEntityTest {
+    private CountryEntity countryEntity;
+
+    private static final int ID = 1;
+    private static final String NAME = "UK";
+    private static final int CONTINENT_ID = 1;
+    private static final int X_COORDINATE = 1;
+    private static final int Y_COORDINATE = 1;
+
+    @BeforeEach
+    void setUp() {
+        countryEntity = new CountryEntity(ID, NAME, CONTINENT_ID, X_COORDINATE, Y_COORDINATE);
+    }
 
     @Test
     void testConstructor() {
-        var id = 1;
-        var name = "Europe";
-        var continentId = 1;
-        var xCoordinate = 1;
-        var yCoordinate = 1;
+        var entity = new CountryEntity(ID, NAME, CONTINENT_ID, X_COORDINATE, Y_COORDINATE);
 
-        var entity = new CountryEntity(id, name, continentId, xCoordinate, yCoordinate);
+        assertEquals(ID, entity.getId());
+        assertEquals(NAME, entity.getName());
+        assertEquals(CONTINENT_ID, entity.getContinentId());
+        assertEquals(X_COORDINATE, entity.getXCoordinate());
+        assertEquals(Y_COORDINATE, entity.getYCoordinate());
+    }
 
-        assertEquals(id, entity.getId());
-        assertEquals(name, entity.getName());
-        assertEquals(continentId, entity.getContinentId());
-        assertEquals(xCoordinate, entity.getXCoordinate());
-        assertEquals(yCoordinate, entity.getYCoordinate());
+    @Test
+    void testGetId() {
+        assertEquals(ID, countryEntity.getId());
+    }
+
+    @Test
+    void testGetName() {
+        assertEquals(NAME, countryEntity.getName());
+    }
+
+    @Test
+    void testGetContinentId() {
+        assertEquals(CONTINENT_ID, countryEntity.getContinentId());
+    }
+
+    @Test
+    void testGetXCoordinate() {
+        assertEquals(X_COORDINATE, countryEntity.getXCoordinate());
+    }
+
+    @Test
+    void testGetYCoordinate() {
+        assertEquals(Y_COORDINATE, countryEntity.getYCoordinate());
     }
 }
