@@ -1,6 +1,7 @@
 package com.example.game.services;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Scanner;
 import org.springframework.stereotype.Service;
 import com.example.game.entities.MapEntity;
@@ -22,6 +23,7 @@ public class MapLoaderService {
     public void load(MapEntity mapEntity) throws Exception {
         File folder = new File(MAPS_FOLDER_PATH);
         File[] listOfFiles = folder.listFiles();
+        Arrays.sort(listOfFiles, (a, b) -> a.getName().compareTo(b.getName()));
 
         if (listOfFiles == null || listOfFiles.length == 0) {
             throw new Exception("No map files found.");
