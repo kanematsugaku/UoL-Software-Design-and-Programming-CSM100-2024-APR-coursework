@@ -8,19 +8,19 @@ package com.example.game.entities;
 public class ContinentEntity {
     private final int id;
     private final String name;
-    private final int armyValue;
+    private final int armyBonus;
     private final String color;
 
     /**
      * @param id the id of the continent
      * @param name the name of the continent
-     * @param armyValue the army value of the continent
+     * @param armyBonus the army bonus of the continent
      * @param color the color of the continent
      */
-    public ContinentEntity(int id, String name, int armyValue, String color) {
+    public ContinentEntity(int id, String name, int armyBonus, String color) {
         this.id = id;
         this.name = name;
-        this.armyValue = armyValue;
+        this.armyBonus = armyBonus;
         this.color = color;
     }
 
@@ -39,10 +39,10 @@ public class ContinentEntity {
     }
 
     /**
-     * @return the army value of the continent
+     * @return the army bonus of the continent
      */
-    public int getArmyValue() {
-        return armyValue;
+    public int getArmyBonus() {
+        return armyBonus;
     }
 
     /**

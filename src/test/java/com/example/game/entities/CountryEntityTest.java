@@ -62,9 +62,20 @@ class CountryEntityTest {
     }
 
     @Test
+    void testGetArmyCount() {
+        assertEquals(0, countryEntity.getArmyCount());
+    }
+
+    @Test
     void testSetPlayerId() {
         var playerId = 1;
         countryEntity.setPlayerId(playerId);
         assertEquals(playerId, countryEntity.getPlayerId());
+    }
+
+    @Test
+    void testIncrementArmyCount() {
+        countryEntity.incrementArmyCount();
+        assertEquals(1, countryEntity.getArmyCount());
     }
 }

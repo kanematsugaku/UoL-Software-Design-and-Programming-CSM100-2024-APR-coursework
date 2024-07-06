@@ -12,6 +12,7 @@ public class CountryEntity {
     private final int xCoordinate;
     private final int yCoordinate;
     private Integer playerId;
+    private int armyCount;
 
     /**
      * @param id the id of the country
@@ -27,6 +28,7 @@ public class CountryEntity {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.playerId = null;
+        this.armyCount = 0;
     }
 
     /**
@@ -73,9 +75,23 @@ public class CountryEntity {
     }
 
     /**
+     * @return the army count of the country
+     */
+    public int getArmyCount() {
+        return armyCount;
+    }
+
+    /**
      * @param playerId the id of the player who owns the country
      */
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
+    }
+
+    /**
+     * Increments the army count by 1
+     */
+    public void incrementArmyCount() {
+        this.armyCount++;
     }
 }

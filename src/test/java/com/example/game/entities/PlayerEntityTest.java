@@ -55,4 +55,10 @@ class PlayerEntityTest {
         playerEntity.addArmyCount(1);
         assertEquals(ARMY_COUNT + 1, playerEntity.getArmyCount());
     }
+
+    @Test
+    void testDecrementArmyCount() {
+        playerEntity.decrementArmyCount();
+        assertEquals(ARMY_COUNT - 1, playerEntity.getArmyCount());
+    }
 }

@@ -157,4 +157,14 @@ public class MapEntity {
         return countries.stream().filter(country -> country.getContinentId() == continent.getId())
                 .toList();
     }
+
+    /**
+     * Gets a country by its id
+     *
+     * @param id the id
+     * @return the country
+     */
+    public CountryEntity getCountryById(int id) {
+        return countries.stream().filter(country -> country.getId() == id).findFirst().orElse(null);
+    }
 }

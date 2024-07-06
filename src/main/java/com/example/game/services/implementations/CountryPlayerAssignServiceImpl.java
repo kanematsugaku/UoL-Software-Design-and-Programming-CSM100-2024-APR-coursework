@@ -23,8 +23,6 @@ public class CountryPlayerAssignServiceImpl implements CountryPlayerAssignServic
      * @param players The players to assign to countries.
      */
     public void assign(MapEntity map, List<PlayerEntity> players) {
-        PrintUtil.printLine("Assigning players to countries...");
-
         var countries = map.getCountries();
         var playerCount = players.size();
         var playerIndex = 0;
@@ -35,5 +33,7 @@ public class CountryPlayerAssignServiceImpl implements CountryPlayerAssignServic
             playerIndex = (playerIndex + 1) % playerCount;
         }
         countries.sort(Comparator.comparing(CountryEntity::getId));
+
+        PrintUtil.printLine("Countries assigned to players.");
     }
 }

@@ -54,7 +54,6 @@ public class PlayerEntity {
         return type;
     }
 
-
     /**
      * Adds an army count to the player
      *
@@ -62,5 +61,12 @@ public class PlayerEntity {
      */
     public void addArmyCount(int count) {
         armyCount += count;
+    }
+
+    /**
+     * Decrements the army count by 1
+     */
+    public void decrementArmyCount() {
+        armyCount--;
     }
 }

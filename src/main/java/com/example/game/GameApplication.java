@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.example.game.entities.MapEntity;
 import com.example.game.entities.PlayerEntity;
 import com.example.game.services.interfaces.CountryPlayerAssignService;
+import com.example.game.services.interfaces.DispatchService;
 import com.example.game.services.interfaces.MapInitService;
 import com.example.game.services.interfaces.MessageService;
 import com.example.game.services.interfaces.PlayerInitService;
@@ -27,18 +28,20 @@ public class GameApplication implements CommandLineRunner {
     private final PlayerInitService playerInitService;
     private final CountryPlayerAssignService countryPlayerAssignService;
     private final ReinforcementService reinforcementService;
+    private final DispatchService dispatchService;
     private boolean isGameEnded = false;
 
     @Autowired
     public GameApplication(MessageService messageService, MapInitService mapInitService,
             PlayerInitService playerInitService,
             CountryPlayerAssignService countryPlayerAssignService,
-            ReinforcementService reinforcementService) {
+            ReinforcementService reinforcementService, DispatchService dispatchService) {
         this.messageService = messageService;
         this.mapInitService = mapInitService;
         this.playerInitService = playerInitService;
         this.countryPlayerAssignService = countryPlayerAssignService;
         this.reinforcementService = reinforcementService;
+        this.dispatchService = dispatchService;
     }
 
     public static void main(String[] args) {
@@ -66,7 +69,10 @@ public class GameApplication implements CommandLineRunner {
                 // 2-1. The reinforcement phase
                 for (PlayerEntity player : this.players) {
                     reinforcementService.reinforce(player, map);
+                    dispatchService.dispatch(scanner, player, map);
                 }
+
+                isGameEnded = true;
 
                 // 2-2. The attack phase
                 // TODO: Implement

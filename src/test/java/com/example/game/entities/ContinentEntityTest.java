@@ -11,21 +11,21 @@ class ContinentEntityTest {
 
     private static final int ID = 1;
     private static final String NAME = "Europe";
-    private static final int ARMY_VALUE = 10;
+    private static final int ARMY_BONUS = 10;
     private static final String COLOR = "BLUE";
 
     @BeforeEach
     void setUp() {
-        continentEntity = new ContinentEntity(ID, NAME, ARMY_VALUE, COLOR);
+        continentEntity = new ContinentEntity(ID, NAME, ARMY_BONUS, COLOR);
     }
 
     @Test
     void testConstructor() {
-        var entity = new ContinentEntity(ID, NAME, ARMY_VALUE, COLOR);
+        var entity = new ContinentEntity(ID, NAME, ARMY_BONUS, COLOR);
 
         assertEquals(ID, entity.getId());
         assertEquals(NAME, entity.getName());
-        assertEquals(ARMY_VALUE, entity.getArmyValue());
+        assertEquals(ARMY_BONUS, entity.getArmyBonus());
         assertEquals(COLOR, entity.getColor());
     }
 
@@ -41,7 +41,7 @@ class ContinentEntityTest {
 
     @Test
     void testGetArmyValue() {
-        assertEquals(ARMY_VALUE, continentEntity.getArmyValue());
+        assertEquals(ARMY_BONUS, continentEntity.getArmyBonus());
     }
 
     @Test

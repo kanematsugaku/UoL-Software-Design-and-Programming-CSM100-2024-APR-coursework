@@ -22,6 +22,12 @@ import com.example.game.util.PrintUtil;
  */
 @Service
 public class ReinforcementServiceImpl implements ReinforcementService {
+    /**
+     * Reinforces the armies of a player
+     *
+     * @param player the player
+     * @param map the map
+     */
     public void reinforce(PlayerEntity player, MapEntity map) {
         int ownedCountryReinforcements = 0;
         List<CountryEntity> playerCountries = map.getPlayerCountries(player);
@@ -31,12 +37,13 @@ public class ReinforcementServiceImpl implements ReinforcementService {
         for (ContinentEntity continent : map.getContinents()) {
             List<CountryEntity> continentCountries = map.getContinentCountries(continent);
             if (playerCountries.containsAll(continentCountries)) {
-                ownedContinentReinforcements += continent.getArmyValue();
+                ownedContinentReinforcements += continent.getArmyBonus();
             }
         }
 
         int totalReinforcements = ownedCountryReinforcements + ownedContinentReinforcements;
 
+        PrintUtil.printLine("For " + player.getName() + ":");
         PrintUtil.printLine("Reinforcements: " + totalReinforcements + " (" + "by countries: "
                 + ownedCountryReinforcements + ", " + "by continents: "
                 + ownedContinentReinforcements + ")");

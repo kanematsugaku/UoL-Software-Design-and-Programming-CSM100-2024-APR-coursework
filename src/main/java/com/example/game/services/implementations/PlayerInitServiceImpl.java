@@ -15,6 +15,10 @@ import com.example.game.util.PrintUtil;
  */
 @Service
 public class PlayerInitServiceImpl implements PlayerInitService {
+    private static final int AVAILABLE_PLAYER_COUNT = 2;
+    // TODO: Revert to 40 when finalizing this project
+    private static final int INITIAL_ARMY_COUNT = 10;
+
     /**
      * Initializes the players.
      *
@@ -28,10 +32,11 @@ public class PlayerInitServiceImpl implements PlayerInitService {
         while (!isPlayerCountValid) {
             PrintUtil.printLine("Enter the number of players: ");
             playerCount = scanner.nextInt();
-            if (playerCount == 2) {
+            if (playerCount == AVAILABLE_PLAYER_COUNT) {
                 isPlayerCountValid = true;
             } else {
-                PrintUtil.printLine("Currently, only 2 players are supported.");
+                PrintUtil.printLine(
+                        "Currently, only " + AVAILABLE_PLAYER_COUNT + " players are supported.");
             }
         }
 
@@ -52,7 +57,7 @@ public class PlayerInitServiceImpl implements PlayerInitService {
             }
 
             PlayerType type = i == 0 ? PlayerType.Human : PlayerType.AI;
-            PlayerEntity player = new PlayerEntity(i, playerName, 40, type);
+            PlayerEntity player = new PlayerEntity(i, playerName, INITIAL_ARMY_COUNT, type);
             players.add(player);
         }
 
