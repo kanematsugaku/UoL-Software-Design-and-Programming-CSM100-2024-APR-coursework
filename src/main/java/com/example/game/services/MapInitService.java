@@ -8,19 +8,20 @@ import com.example.game.entities.MapEntity;
 import com.example.game.util.PrintUtil;
 
 /**
- * The service for loading maps from the text map files.
+ * The service for loading the map from text map files.
  */
 @Service
-public class MapLoaderService {
+public class MapInitService {
     private static final String MAPS_FOLDER_PATH = "src/main/resources/static/maps";
 
     /**
      * Load a map from the text map file then set the loaded value to the map entity
      *
-     * @param mapEntity
+     * @param scanner The scanner.
+     * @return The map entity.
      * @throws Exception
      */
-    public void load(MapEntity mapEntity) throws Exception {
+    public MapEntity init(Scanner scanner) throws Exception {
         File folder = new File(MAPS_FOLDER_PATH);
         File[] listOfFiles = folder.listFiles();
         Arrays.sort(listOfFiles, (a, b) -> a.getName().compareTo(b.getName()));
@@ -37,27 +38,26 @@ public class MapLoaderService {
         }
 
         File selectedFile = null;
+        int mapNumber = 0;
+        boolean isMapNumberValid = false;
 
-        try (Scanner scanner = new Scanner(System.in)) {
+        while (!isMapNumberValid) {
             PrintUtil.printLine("Enter the number of the map you want to play: ");
-
-            int mapNumber = 0;
-            boolean validMapNumber = false;
-
-            while (!validMapNumber) {
-                mapNumber = scanner.nextInt();
-                if (mapNumber >= 0 && mapNumber < listOfFiles.length) {
-                    validMapNumber = true;
-                } else {
-                    PrintUtil.printLine(
-                            "Invalid map number. Please enter the number of the map you want to play: ");
-                }
+            mapNumber = scanner.nextInt();
+            if (mapNumber >= 0 && mapNumber < listOfFiles.length) {
+                isMapNumberValid = true;
+            } else {
+                PrintUtil.printLine("Invalid map number.");
             }
-
-            selectedFile = listOfFiles[mapNumber];
-            PrintUtil.printLine("Loading map number " + mapNumber + ": " + selectedFile.getName());
         }
 
+        selectedFile = listOfFiles[mapNumber];
+        PrintUtil.printLine("Loading map number: " + mapNumber);
+
+        MapEntity mapEntity = new MapEntity();
         mapEntity.load(selectedFile);
+        PrintUtil.printLine("Map name: " + mapEntity.name);
+
+        return mapEntity;
     }
 }
