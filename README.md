@@ -6,27 +6,26 @@
 
 Please note that when the due date is reached, the version you submitted last will be considered your final submission, and it will be the marked version. Once the due date has passed, it will not be possible for you to submit a different version of your assessment. Therefore, you must ensure you have submitted the correct version of your assessment, which you wish to be marked, by the due date.
 
+<br>
+<br>
+
 ---
 
-## Commands
+**_Commands_**
 
-**Build and Run**
+_Run for Development_
 
 ```sh
 ./gradlew bootRun
-
-# ...is the same as executing the following commands:
-# ./gradlew build
-# java -jar build/libs/game-0.0.1-SNAPSHOT.jar
 ```
 
-**Test**
+_Test_
 
 ```sh
 ./gradlew test
 ```
 
-**Build**
+_Build_
 
 ```sh
 # Delete build folder
@@ -35,7 +34,7 @@ Please note that when the due date is reached, the version you submitted last wi
 ./gradlew build
 ```
 
-**Run the built jar file**
+_Run the built jar file_
 
 ```sh
 java -jar build/libs/game-0.0.1-SNAPSHOT.jar
@@ -43,7 +42,6 @@ java -jar build/libs/game-0.0.1-SNAPSHOT.jar
 
 ---
 
-<br>
 <br>
 <br>
 
