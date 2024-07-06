@@ -1,7 +1,6 @@
 package com.example.game.services;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 import org.springframework.stereotype.Service;
 import com.example.game.entities.MapEntity;
@@ -30,18 +29,22 @@ public class MapLoaderService {
 
         try (Scanner scanner = new Scanner(System.in)) {
             PrintUtil.printLine("Enter the number of the map you want to play: ");
-            int mapNumber = scanner.nextInt();
 
-            if (mapNumber < 0 || mapNumber >= listOfFiles.length) {
-                throw new Exception("Invalid map number.");
+            int mapNumber = 0;
+            boolean validMapNumber = false;
+
+            while (!validMapNumber) {
+                mapNumber = scanner.nextInt();
+                if (mapNumber >= 0 && mapNumber < listOfFiles.length) {
+                    validMapNumber = true;
+                } else {
+                    PrintUtil.printLine(
+                            "Invalid map number. Please enter the number of the map you want to play: ");
+                }
             }
 
             selectedFile = listOfFiles[mapNumber];
             PrintUtil.printLine("Loading map number " + mapNumber + ": " + selectedFile.getName());
-        } catch (IOException e) {
-            PrintUtil.printLine("Error reading the map file.");
-            e.printStackTrace();
-            throw e;
         }
 
         mapEntity.load(selectedFile);
