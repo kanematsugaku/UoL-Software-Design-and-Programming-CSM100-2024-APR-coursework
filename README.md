@@ -24,7 +24,7 @@ It is key to realize that the project description is purposely incomplete and th
 
 This module’s individual replacement coursework involves building a simple “Risk” computer game.
 
-![Game package](./image/readme-package.webp)
+![Game package](./readme-package.webp)
 
 - [Hasbro Game](https://products.hasbro.com/en-gb/product/risk-game/2C7C6F52-5056-9047-F5DD-EB8AC273BA4C)
 - [The rules of the “official” game.](https://instructions.hasbro.com/api/download/B7404_en-us_Risk-Game.pdf)
@@ -41,7 +41,7 @@ The developed program must be compatible with
 The code for the Domination version of the game is provided here which is where your code should also reside. As always, you need to have a “rich” commit history.
 We have stated your repository for you with an initial `commit`; you do not need to `push` as there is no remote repository required (unless you want to create one).
 
-![Game map](./image/readme-map.webp)
+![Game map](./readme-map.webp)
 
 There is but one file in this repository (aside from this guide):
 
