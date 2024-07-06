@@ -15,7 +15,6 @@ import com.example.game.util.PrintUtil;
  */
 @Service
 public class CountryPlayerAssignServiceImpl implements CountryPlayerAssignService {
-
     /**
      * Randomly assigns players to countries.
      *

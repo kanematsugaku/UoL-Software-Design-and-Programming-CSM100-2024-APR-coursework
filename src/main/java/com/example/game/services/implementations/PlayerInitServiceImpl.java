@@ -17,7 +17,7 @@ import com.example.game.util.PrintUtil;
 public class PlayerInitServiceImpl implements PlayerInitService {
     private static final int AVAILABLE_PLAYER_COUNT = 2;
     // TODO: Revert to 40 when finalizing this project
-    private static final int INITIAL_ARMY_COUNT = 10;
+    private static final int INITIAL_ARMY_COUNT = 5;
 
     /**
      * Initializes the players.

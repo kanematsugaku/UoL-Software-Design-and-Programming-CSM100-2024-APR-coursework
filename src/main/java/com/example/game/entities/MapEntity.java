@@ -167,4 +167,29 @@ public class MapEntity {
     public CountryEntity getCountryById(int id) {
         return countries.stream().filter(country -> country.getId() == id).findFirst().orElse(null);
     }
+
+
+    /**
+     * Gets the countries of a player with two or more armies
+     *
+     * @param player the player
+     * @return the countries of the player with two or more armies
+     */
+    public List<CountryEntity> getPlayerCountriesWithTwoOrMoreArmies(PlayerEntity player) {
+        return countries.stream().filter(
+                country -> country.getPlayerId() == player.getId() && country.getArmyCount() >= 2)
+                .toList();
+    }
+
+    /**
+     * Gets the adjacent countries of a country
+     *
+     * @param country the country
+     * @return the adjacent countries
+     */
+    public List<CountryEntity> getAdjacentCountries(CountryEntity country) {
+        return borders.stream()
+                .filter(border -> border.getAdjacentCountryIds().contains(country.getId()))
+                .map(border -> getCountryById(border.getCountryId())).toList();
+    }
 }

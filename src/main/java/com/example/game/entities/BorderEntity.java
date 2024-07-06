@@ -1,5 +1,8 @@
 package com.example.game.entities;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * The entity represents a border between two countries in the map.
  *
@@ -7,7 +10,7 @@ package com.example.game.entities;
  */
 public class BorderEntity {
     private final int countryId;
-    private final int[] adjacentCountryIds;
+    private final List<Integer> adjacentCountryIds;
 
     /**
      * @param countryId the id of the country
@@ -15,7 +18,7 @@ public class BorderEntity {
      */
     public BorderEntity(int countryId, int... adjacentCountryIds) {
         this.countryId = countryId;
-        this.adjacentCountryIds = adjacentCountryIds;
+        this.adjacentCountryIds = Arrays.stream(adjacentCountryIds).boxed().toList();
     }
 
     /**
@@ -28,7 +31,7 @@ public class BorderEntity {
     /**
      * @return the ids of the countries adjacent to the country
      */
-    public int[] getAdjacentCountryIds() {
+    public List<Integer> getAdjacentCountryIds() {
         return adjacentCountryIds;
     }
 }

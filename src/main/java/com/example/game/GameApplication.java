@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.example.game.entities.MapEntity;
 import com.example.game.entities.PlayerEntity;
+import com.example.game.services.interfaces.AttackService;
 import com.example.game.services.interfaces.CountryPlayerAssignService;
 import com.example.game.services.interfaces.DispatchService;
 import com.example.game.services.interfaces.MapInitService;
@@ -29,19 +30,22 @@ public class GameApplication implements CommandLineRunner {
     private final CountryPlayerAssignService countryPlayerAssignService;
     private final ReinforcementService reinforcementService;
     private final DispatchService dispatchService;
+    private final AttackService attackService;
     private boolean isGameEnded = false;
 
     @Autowired
     public GameApplication(MessageService messageService, MapInitService mapInitService,
             PlayerInitService playerInitService,
             CountryPlayerAssignService countryPlayerAssignService,
-            ReinforcementService reinforcementService, DispatchService dispatchService) {
+            ReinforcementService reinforcementService, DispatchService dispatchService,
+            AttackService attackService) {
         this.messageService = messageService;
         this.mapInitService = mapInitService;
         this.playerInitService = playerInitService;
         this.countryPlayerAssignService = countryPlayerAssignService;
         this.reinforcementService = reinforcementService;
         this.dispatchService = dispatchService;
+        this.attackService = attackService;
     }
 
     public static void main(String[] args) {
@@ -58,8 +62,8 @@ public class GameApplication implements CommandLineRunner {
             // -----------------
             // 1. Startup phase
             // -----------------
-            this.map = mapInitService.init(scanner);
-            this.players = playerInitService.init(scanner);
+            map = mapInitService.init(scanner);
+            players = playerInitService.init(scanner);
             countryPlayerAssignService.assign(map, players);
 
             // -------------------
@@ -67,15 +71,17 @@ public class GameApplication implements CommandLineRunner {
             // -------------------
             while (!isGameEnded) {
                 // 2-1. The reinforcement phase
-                for (PlayerEntity player : this.players) {
+                for (PlayerEntity player : players) {
                     reinforcementService.reinforce(player, map);
                     dispatchService.dispatch(scanner, player, map);
                 }
 
-                isGameEnded = true;
-
                 // 2-2. The attack phase
-                // TODO: Implement
+                for (PlayerEntity player : players) {
+                    attackService.attack(scanner, player, map);
+                }
+
+                isGameEnded = true;
 
                 // 2-3. The fortification phase
                 // TODO: Implement
