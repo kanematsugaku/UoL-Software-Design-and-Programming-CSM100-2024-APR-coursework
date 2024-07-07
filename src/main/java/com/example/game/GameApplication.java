@@ -9,6 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.example.game.entities.MapEntity;
 import com.example.game.entities.PlayerEntity;
 import com.example.game.services.interfaces.AttackService;
+import com.example.game.services.interfaces.CelebrateService;
+import com.example.game.services.interfaces.CheckGameEndService;
 import com.example.game.services.interfaces.CountryPlayerAssignService;
 import com.example.game.services.interfaces.DispatchService;
 import com.example.game.services.interfaces.DisplayMapService;
@@ -17,6 +19,7 @@ import com.example.game.services.interfaces.MapInitService;
 import com.example.game.services.interfaces.MessageService;
 import com.example.game.services.interfaces.PlayerInitService;
 import com.example.game.services.interfaces.ReinforcementService;
+import com.example.game.services.interfaces.RemovePlayerService;
 
 /**
  * The entry point class for the game application.
@@ -35,6 +38,9 @@ public class GameApplication implements CommandLineRunner {
     private final DispatchService dispatchService;
     private final AttackService attackService;
     private final FortificationService fortificationService;
+    private final RemovePlayerService removePlayerService;
+    private final CheckGameEndService checkGameEndService;
+    private final CelebrateService celebrateService;
     private boolean isGameEnded = false;
 
     @Autowired
@@ -42,7 +48,9 @@ public class GameApplication implements CommandLineRunner {
             PlayerInitService playerInitService, DisplayMapService displayMapService,
             CountryPlayerAssignService countryPlayerAssignService,
             ReinforcementService reinforcementService, DispatchService dispatchService,
-            AttackService attackService, FortificationService fortificationService) {
+            AttackService attackService, FortificationService fortificationService,
+            RemovePlayerService removePlayerService, CheckGameEndService checkGameEndService,
+            CelebrateService celebrateService) {
         this.messageService = messageService;
         this.mapInitService = mapInitService;
         this.playerInitService = playerInitService;
@@ -52,6 +60,9 @@ public class GameApplication implements CommandLineRunner {
         this.dispatchService = dispatchService;
         this.attackService = attackService;
         this.fortificationService = fortificationService;
+        this.removePlayerService = removePlayerService;
+        this.checkGameEndService = checkGameEndService;
+        this.celebrateService = celebrateService;
     }
 
     public static void main(String[] args) {
@@ -72,9 +83,9 @@ public class GameApplication implements CommandLineRunner {
             players = playerInitService.init(scanner);
             countryPlayerAssignService.assign(map, players);
 
-            // -------------------
-            // 2. Turn-based play
-            // -------------------
+            // --------------------
+            // 2. Turn-based phase
+            // --------------------
             while (!isGameEnded) {
                 // 2-1. The reinforcement phase
                 for (PlayerEntity player : players) {
@@ -87,20 +98,25 @@ public class GameApplication implements CommandLineRunner {
                 for (PlayerEntity player : players) {
                     displayMapService.display(map, players);
                     attackService.attack(scanner, map, player);
+
+                }
+
+                // 2-3. The fortification phase
+                for (PlayerEntity player : players) {
                     displayMapService.display(map, players);
                     fortificationService.fortify(scanner, map, player);
                 }
 
-                isGameEnded = true;
-
-                // 2-3. The fortification phase
-                // TODO: Implement
+                // 2-4. Turn-ending phase
+                removePlayerService.remove(map, players);
+                isGameEnded = checkGameEndService.check(map, players);
             }
 
-            // ---------------
-            // 3. The endgame
-            // ---------------
-
+            // ---------------------
+            // 3. The endgame phase
+            // ---------------------
+            displayMapService.display(map, players);
+            celebrateService.celebrate(players);
         } catch (Exception e) {
             messageService.showExceptionMessage(e);
         } finally {

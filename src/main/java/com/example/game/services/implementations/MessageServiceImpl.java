@@ -12,6 +12,7 @@ public class MessageServiceImpl implements MessageService {
     /**
      * Show messages for startup
      */
+    @Override
     public void showWelcomeMessage() {
         PrintUtil.printImportantMessage("Welcome to the game!");
     }
@@ -19,6 +20,7 @@ public class MessageServiceImpl implements MessageService {
     /**
      * Show messages for closing
      */
+    @Override
     public void showClosingMessage() {
         PrintUtil.printImportantMessage("Thank you for playing!");
     }
@@ -28,6 +30,7 @@ public class MessageServiceImpl implements MessageService {
      *
      * @param e Exception
      */
+    @Override
     public void showExceptionMessage(Exception e) {
         PrintUtil.printImportantMessage("An error occurred...");
         PrintUtil.printLine(e.getMessage());

@@ -31,6 +31,7 @@ public class AttackServiceImpl implements AttackService {
      * @param player the player
      * @param map the map
      */
+    @Override
     public void attack(Scanner scanner, MapEntity map, PlayerEntity player) {
         if (player.getType().equals(PlayerEntity.PlayerType.Human)) {
             attackManually(scanner, player, map);

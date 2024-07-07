@@ -19,6 +19,7 @@ public class FortificationServiceImpl implements FortificationService {
      * @param map the map
      * @param player the player
      */
+    @Override
     public void fortify(Scanner scanner, MapEntity map, PlayerEntity player) {
         if (player.getType().equals(PlayerEntity.PlayerType.Human)) {
             fortifyManually(scanner, player, map);
@@ -36,7 +37,7 @@ public class FortificationServiceImpl implements FortificationService {
      * @param map
      */
     public void fortifyManually(Scanner scanner, PlayerEntity player, MapEntity map) {
-
+        // TODO: Implement
     }
 
     /**
@@ -46,6 +47,6 @@ public class FortificationServiceImpl implements FortificationService {
      * @param map the map
      */
     public void fortifyAutomatically(PlayerEntity player, MapEntity map) {
-
+        // TODO: Implement
     }
 }

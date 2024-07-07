@@ -28,6 +28,7 @@ public class ReinforcementServiceImpl implements ReinforcementService {
      * @param map the map
      * @param player the player
      */
+    @Override
     public void reinforce(MapEntity map, PlayerEntity player) {
         Integer ownedCountryReinforcements = 0;
         List<CountryEntity> playerCountries = map.getPlayerCountries(player);

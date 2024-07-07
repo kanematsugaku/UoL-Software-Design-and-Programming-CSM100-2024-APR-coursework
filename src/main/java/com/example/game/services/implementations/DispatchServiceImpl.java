@@ -24,6 +24,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @param player the player
      * @param map the map
      */
+    @Override
     public void dispatch(Scanner scanner, MapEntity map, PlayerEntity player) {
         List<CountryEntity> playerCountries = map.getPlayerCountries(player);
 

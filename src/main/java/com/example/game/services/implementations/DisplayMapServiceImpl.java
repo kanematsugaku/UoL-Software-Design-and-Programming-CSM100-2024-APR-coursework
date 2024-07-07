@@ -16,42 +16,49 @@ import com.example.game.util.PrintUtil;
  */
 @Service
 public class DisplayMapServiceImpl implements DisplayMapService {
-    /**
-     * Displays the map.
-     *
-     * @param map The map to display.
-     * @param players The players to display the map for.
-     */
-    public void display(MapEntity map, List<PlayerEntity> players) {
-        PrintUtil.printSpace();
-        PrintUtil.printImportantMessage("Map");
-        PrintUtil.printSpace();
+        /**
+         * Displays the map.
+         *
+         * @param map The map to display.
+         * @param players The players to display the map for.
+         */
+        @Override
+        public void display(MapEntity map, List<PlayerEntity> players) {
+                PrintUtil.printSpace();
+                PrintUtil.printImportantMessage("Map");
+                PrintUtil.printSpace();
 
-        List<ContinentEntity> sortedContinents = map.getContinents().stream()
-                .sorted(Comparator.comparing(ContinentEntity::getId)).toList();
+                List<ContinentEntity> sortedContinents = map.getContinents().stream()
+                                .sorted(Comparator.comparing(ContinentEntity::getId)).toList();
 
-        for (ContinentEntity continent : sortedContinents) {
+                for (ContinentEntity continent : sortedContinents) {
 
-            PrintUtil.printLine("=== Continent: " + continent.getName() + " ===");
+                        PrintUtil.printLine("=== Continent: " + continent.getName() + " ===");
 
-            List<CountryEntity> sortedCountries = map.getCountries().stream()
-                    .filter(country -> country.getContinentId().equals(continent.getId()))
-                    .sorted(Comparator.comparing(CountryEntity::getId)).toList();
+                        List<CountryEntity> sortedCountries = map.getCountries().stream()
+                                        .filter(country -> country.getContinentId()
+                                                        .equals(continent.getId()))
+                                        .sorted(Comparator.comparing(CountryEntity::getId))
+                                        .toList();
 
-            for (CountryEntity country : sortedCountries) {
-                List<CountryEntity> adjacentCountries = map.getAdjacentCountries(country);
-                String adjacentCountriesString = adjacentCountries.stream()
-                        .map(CountryEntity::getName).collect(Collectors.joining(", "));
+                        for (CountryEntity country : sortedCountries) {
+                                List<CountryEntity> adjacentCountries =
+                                                map.getAdjacentCountries(country);
+                                String adjacentCountriesString = adjacentCountries.stream()
+                                                .map(CountryEntity::getName)
+                                                .collect(Collectors.joining(", "));
 
-                PlayerEntity dominantPlayer = players.stream()
-                        .filter(player -> player.getId().equals(country.getPlayerId())).findFirst()
-                        .orElse(null);
+                                PlayerEntity dominantPlayer = players.stream()
+                                                .filter(player -> player.getId()
+                                                                .equals(country.getPlayerId()))
+                                                .findFirst().orElse(null);
 
-                PrintUtil.printLine(country.getName() + " | " + "Dominant player: "
-                        + dominantPlayer.getName() + " | " + "Armies: " + country.getArmyCount()
-                        + " | " + "Adjacent countries: " + adjacentCountriesString);
+                                PrintUtil.printLine(country.getName() + " | " + "Dominant player: "
+                                                + dominantPlayer.getName() + " | " + "Armies: "
+                                                + country.getArmyCount() + " | "
+                                                + "Adjacent countries: " + adjacentCountriesString);
 
-            }
+                        }
+                }
         }
-    }
 }

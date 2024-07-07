@@ -25,6 +25,7 @@ public class PlayerInitServiceImpl implements PlayerInitService {
      * @param scanner The scanner.
      * @return The list of player entities.
      */
+    @Override
     public List<PlayerEntity> init(Scanner scanner) {
         Integer playerCount = 0;
         boolean isPlayerCountValid = false;

@@ -22,6 +22,7 @@ public class MapInitServiceImpl implements MapInitService {
      * @return The map entity.
      * @throws Exception
      */
+    @Override
     public MapEntity init(Scanner scanner) throws Exception {
         File folder = new File(MAPS_FOLDER_PATH);
         File[] listOfFiles = folder.listFiles();
