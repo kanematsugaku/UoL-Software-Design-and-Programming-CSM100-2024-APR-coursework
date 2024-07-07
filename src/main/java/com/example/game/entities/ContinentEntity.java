@@ -3,12 +3,12 @@ package com.example.game.entities;
 /**
  * The entity represents a continent in the map.
  *
- * For more information about fields see: https://domination.sourceforge.io/makemaps.shtml
+ * For more information about fields @see: https://domination.sourceforge.io/makemaps.shtml
  */
 public class ContinentEntity {
-    private final int id;
+    private final Integer id;
     private final String name;
-    private final int armyBonus;
+    private final Integer armyBonus;
     private final String color;
 
     /**
@@ -17,7 +17,7 @@ public class ContinentEntity {
      * @param armyBonus the army bonus of the continent
      * @param color the color of the continent
      */
-    public ContinentEntity(int id, String name, int armyBonus, String color) {
+    public ContinentEntity(Integer id, String name, Integer armyBonus, String color) {
         this.id = id;
         this.name = name;
         this.armyBonus = armyBonus;
@@ -27,7 +27,7 @@ public class ContinentEntity {
     /**
      * @return the id of the continent
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -41,7 +41,7 @@ public class ContinentEntity {
     /**
      * @return the army bonus of the continent
      */
-    public int getArmyBonus() {
+    public Integer getArmyBonus() {
         return armyBonus;
     }
 

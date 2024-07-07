@@ -26,13 +26,14 @@ public class PlayerInitServiceImpl implements PlayerInitService {
      * @return The list of player entities.
      */
     public List<PlayerEntity> init(Scanner scanner) {
-        int playerCount = 0;
+        Integer playerCount = 0;
         boolean isPlayerCountValid = false;
 
         while (!isPlayerCountValid) {
+            PrintUtil.printSpace();
             PrintUtil.printLine("Enter the number of players: ");
             playerCount = scanner.nextInt();
-            if (playerCount == AVAILABLE_PLAYER_COUNT) {
+            if (playerCount.equals(AVAILABLE_PLAYER_COUNT)) {
                 isPlayerCountValid = true;
             } else {
                 PrintUtil.printLine(
@@ -47,6 +48,7 @@ public class PlayerInitServiceImpl implements PlayerInitService {
             boolean isPlayerNameValid = false;
 
             while (!isPlayerNameValid) {
+                PrintUtil.printSpace();
                 PrintUtil.printLine("Enter the name of the player " + (i + 1) + ": ");
                 playerName = scanner.next();
                 if (!playerName.isEmpty()) {
@@ -61,6 +63,7 @@ public class PlayerInitServiceImpl implements PlayerInitService {
             players.add(player);
         }
 
+        PrintUtil.printSpace();
         for (int i = 0; i < players.size(); i++) {
             PrintUtil.printLine("Player " + (i + 1) + " name: " + players.get(i).getName());
         }

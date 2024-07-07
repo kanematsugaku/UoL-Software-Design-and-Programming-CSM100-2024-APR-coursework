@@ -4,9 +4,9 @@ package com.example.game.entities;
  * The entity represents a player in the game.
  */
 public class PlayerEntity {
-    private final int id;
+    private final Integer id;
     private final String name;
-    private int armyCount;
+    private Integer armyCount;
     private PlayerType type;
 
     public enum PlayerType {
@@ -19,7 +19,7 @@ public class PlayerEntity {
      * @param armyCount the army count of the player
      * @param type the type of the player
      */
-    public PlayerEntity(int id, String name, int armyCount, PlayerType type) {
+    public PlayerEntity(Integer id, String name, Integer armyCount, PlayerType type) {
         this.id = id;
         this.name = name;
         this.armyCount = armyCount;
@@ -29,7 +29,7 @@ public class PlayerEntity {
     /**
      * @return the id of the player
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -43,7 +43,7 @@ public class PlayerEntity {
     /**
      * @return the army count of the player
      */
-    public int getArmyCount() {
+    public Integer getArmyCount() {
         return armyCount;
     }
 
@@ -59,7 +59,7 @@ public class PlayerEntity {
      *
      * @param count the count to add
      */
-    public void addArmyCount(int count) {
+    public void addArmyCount(Integer count) {
         armyCount += count;
     }
 

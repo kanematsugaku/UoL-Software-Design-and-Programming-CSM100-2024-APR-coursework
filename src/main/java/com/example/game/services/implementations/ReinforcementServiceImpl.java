@@ -29,11 +29,11 @@ public class ReinforcementServiceImpl implements ReinforcementService {
      * @param map the map
      */
     public void reinforce(PlayerEntity player, MapEntity map) {
-        int ownedCountryReinforcements = 0;
+        Integer ownedCountryReinforcements = 0;
         List<CountryEntity> playerCountries = map.getPlayerCountries(player);
         ownedCountryReinforcements = Math.max(3, playerCountries.size() / 3);
 
-        int ownedContinentReinforcements = 0;
+        Integer ownedContinentReinforcements = 0;
         for (ContinentEntity continent : map.getContinents()) {
             List<CountryEntity> continentCountries = map.getContinentCountries(continent);
             if (playerCountries.containsAll(continentCountries)) {
@@ -41,11 +41,11 @@ public class ReinforcementServiceImpl implements ReinforcementService {
             }
         }
 
-        int totalReinforcements = ownedCountryReinforcements + ownedContinentReinforcements;
+        Integer totalReinforcements = ownedCountryReinforcements + ownedContinentReinforcements;
 
-        PrintUtil.printLine("For " + player.getName() + ":");
-        PrintUtil.printLine("Reinforcements: " + totalReinforcements + " (" + "by countries: "
-                + ownedCountryReinforcements + ", " + "by continents: "
+        PrintUtil.printSpace();
+        PrintUtil.printLine("Reinforcements for " + player.getName() + ":" + totalReinforcements
+                + " (" + "by countries: " + ownedCountryReinforcements + ", " + "by continents: "
                 + ownedContinentReinforcements + ")");
 
         player.addArmyCount(totalReinforcements);

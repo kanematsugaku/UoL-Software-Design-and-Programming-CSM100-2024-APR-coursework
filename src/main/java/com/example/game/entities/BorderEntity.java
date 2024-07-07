@@ -6,25 +6,25 @@ import java.util.List;
 /**
  * The entity represents a border between two countries in the map.
  *
- * For more information about fields see: https://domination.sourceforge.io/makemaps.shtml
+ * For more information about fields @see: https://domination.sourceforge.io/makemaps.shtml
  */
 public class BorderEntity {
-    private final int countryId;
+    private final Integer countryId;
     private final List<Integer> adjacentCountryIds;
 
     /**
      * @param countryId the id of the country
      * @param adjacentCountryIds the ids of the countries adjacent to the country
      */
-    public BorderEntity(int countryId, int... adjacentCountryIds) {
+    public BorderEntity(Integer countryId, Integer... adjacentCountryIds) {
         this.countryId = countryId;
-        this.adjacentCountryIds = Arrays.stream(adjacentCountryIds).boxed().toList();
+        this.adjacentCountryIds = Arrays.stream(adjacentCountryIds).toList();
     }
 
     /**
      * @return the id of the country
      */
-    public int getCountryId() {
+    public Integer getCountryId() {
         return countryId;
     }
 

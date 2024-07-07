@@ -25,48 +25,95 @@ public class AttackServiceImpl implements AttackService {
      * @param map
      */
     public void attack(Scanner scanner, PlayerEntity player, MapEntity map) {
-        List<CountryEntity> playerAttackBaseCountries =
+        List<CountryEntity> playerAttackFromCountries =
                 map.getPlayerCountriesWithTwoOrMoreArmies(player);
 
-        // キーバリューのマップを作成する。
-        // キー: 攻撃元の国, 値: 攻撃先の国
-        Map<CountryEntity, List<CountryEntity>> attackMap = new HashMap<>();
-
-        if (playerAttackBaseCountries.isEmpty()) {
-            PrintUtil.printLine("You have no countries that can be base for attack.");
+        if (playerAttackFromCountries.isEmpty()) {
+            PrintUtil.printLine("You have no countries that can attack from.");
             return;
         }
 
-        for (CountryEntity baseCountry : playerAttackBaseCountries) {
-            List<CountryEntity> adjacentCountries = map.getAdjacentCountries(baseCountry);
+        Map<CountryEntity, List<CountryEntity>> attackMap = new HashMap<>();
+
+        for (CountryEntity fromCountry : playerAttackFromCountries) {
+            List<CountryEntity> adjacentCountries = map.getAdjacentCountries(fromCountry);
             for (CountryEntity adjacentCountry : adjacentCountries) {
                 if (adjacentCountry.getPlayerId() != player.getId()) {
-                    if (!attackMap.containsKey(baseCountry)) {
-                        attackMap.put(baseCountry, new ArrayList<>());
+                    if (!attackMap.containsKey(fromCountry)) {
+                        attackMap.put(fromCountry, new ArrayList<>());
                     }
-                    attackMap.get(baseCountry).add(adjacentCountry);
+                    attackMap.get(fromCountry).add(adjacentCountry);
                 }
             }
         }
 
         if (attackMap.isEmpty()) {
-            PrintUtil
-                    .printLine("There are no opponent countries connected to your base countries.");
+            PrintUtil.printLine(
+                    "There are no opponent countries connected to your countries to attack to.");
             return;
         }
 
-        PrintUtil.printLine("You can attack from and to the following countries:");
-        for (CountryEntity baseCountry : attackMap.keySet()) {
-            PrintUtil.printLine("From " + baseCountry.getId() + ": " + baseCountry.getName() + " ("
-                    + baseCountry.getArmyCount() + " armies)");
+        showAttackableCountries(attackMap);
 
-            for (CountryEntity attackableCountry : attackMap.get(baseCountry)) {
-                PrintUtil.printLine("  " + "To " + attackableCountry.getId() + ": "
-                        + attackableCountry.getName() + " (" + attackableCountry.getArmyCount()
-                        + " armies)");
+        while (true) {
+            PrintUtil.printSpace();
+            PrintUtil.printLine("Do you want to attack? [y/n]: ");
+            String answer = scanner.next();
+
+            if (answer.equals("n") || answer.equals("N")) {
+                PrintUtil.printLine("Attack ended.");
+                break;
+            }
+
+            if (answer.equals("y") || answer.equals("Y")) {
+                while (true) {
+                    showAttackableCountries(attackMap);
+                    PrintUtil.printSpace();
+                    PrintUtil.printLine("Enter your country number to attack from: ");
+                    Integer fromCountryNumber = scanner.nextInt();
+                    CountryEntity fromCountry = map.getCountryById(fromCountryNumber);
+                    boolean isPlayerOwnCountry = fromCountry.getPlayerId().equals(player.getId());
+                    if (!isPlayerOwnCountry) {
+                        PrintUtil.printLine("Invalid country number. Select your country.");
+                        break;
+                    }
+                    if (!fromCountry.canAttackFrom()) {
+                        PrintUtil.printLine(
+                                "Invalid country number. Select a country that has two or more armies.");
+                        break;
+                    }
+
+                    PrintUtil.printSpace();
+                    PrintUtil.printLine("Enter opponent country number to attack to: ");
+                    Integer toCountryNumber = scanner.nextInt();
+                    CountryEntity toCountry = map.getCountryById(toCountryNumber);
+                    boolean isPlayerNotOwnCountry = !toCountry.getPlayerId().equals(player.getId());
+                    if (!isPlayerNotOwnCountry) {
+                        PrintUtil.printLine("Invalid country number. Select opponent country.");
+                        break;
+                    }
+
+                    break;
+                }
             }
         }
+    }
 
-        // TODO: Receive input from player and attack.
+    /**
+     * Show attackable countries.
+     *
+     * @param attackMap
+     */
+    void showAttackableCountries(Map<CountryEntity, List<CountryEntity>> attackMap) {
+        PrintUtil.printSpace();
+        PrintUtil.printLine("You can attack from and to the following countries.");
+        for (CountryEntity fromCountry : attackMap.keySet()) {
+            PrintUtil.printLine("From " + fromCountry.getId() + ": " + fromCountry.getName() + " ("
+                    + fromCountry.getArmyCount() + " armies)");
+            for (CountryEntity toCountry : attackMap.get(fromCountry)) {
+                PrintUtil.printLine("  " + "To " + toCountry.getId() + ": " + toCountry.getName()
+                        + " (" + toCountry.getArmyCount() + " armies)");
+            }
+        }
     }
 }

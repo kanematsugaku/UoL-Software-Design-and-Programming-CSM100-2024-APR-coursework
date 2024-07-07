@@ -36,13 +36,14 @@ public class DispatchServiceImpl implements DispatchService {
 
         // Dispatch armies to countries manually by the player.
         while (player.getArmyCount() > 0) {
-            if (player.getType() == PlayerEntity.PlayerType.Human) {
+            if (player.getType().equals(PlayerEntity.PlayerType.Human)) {
                 dispatchManually(scanner, player, map);
             } else {
                 dispatchAutomatically(player, map);
             }
         }
 
+        PrintUtil.printSpace();
         PrintUtil.printLine("Dispatch complete. " + player.getName() + "'s countries are:");
         for (CountryEntity country : playerCountries) {
             PrintUtil.printLine(country.getId() + ": " + country.getName() + " ("
@@ -53,6 +54,7 @@ public class DispatchServiceImpl implements DispatchService {
     void dispatchManually(Scanner scanner, PlayerEntity player, MapEntity map) {
         List<CountryEntity> playerCountries = map.getPlayerCountries(player);
 
+        PrintUtil.printSpace();
         PrintUtil.printLine("You have " + player.getArmyCount() + " armies for dispatch.");
         PrintUtil.printLine("You have the following countries:");
         for (CountryEntity country : playerCountries) {
@@ -60,12 +62,13 @@ public class DispatchServiceImpl implements DispatchService {
                     + country.getArmyCount() + " armies)");
         }
 
+        PrintUtil.printSpace();
         PrintUtil.printLine("Enter the number of country to dispatch 1 army to:");
-        int countryId = scanner.nextInt();
+        Integer countryId = scanner.nextInt();
 
         CountryEntity country = map.getCountryById(countryId);
         if (!playerCountries.contains(country)) {
-            PrintUtil.printLine("Invalid country number.");
+            PrintUtil.printLine("Invalid country number. No army dispatched.");
             return;
         }
 
@@ -77,7 +80,7 @@ public class DispatchServiceImpl implements DispatchService {
         List<CountryEntity> playerCountries = map.getPlayerCountries(player);
 
         Random random = new Random();
-        int randomIndex = random.nextInt(playerCountries.size());
+        Integer randomIndex = random.nextInt(playerCountries.size());
         CountryEntity randomCountry = playerCountries.get(randomIndex);
 
         randomCountry.incrementArmyCount();

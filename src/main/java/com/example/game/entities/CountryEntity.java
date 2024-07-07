@@ -3,16 +3,16 @@ package com.example.game.entities;
 /**
  * The entity represents a country in the map.
  *
- * For more information about fields see: https://domination.sourceforge.io/makemaps.shtml
+ * For more information about fields @see: https://domination.sourceforge.io/makemaps.shtml
  */
 public class CountryEntity {
-    private final int id;
+    private final Integer id;
     private final String name;
-    private final int continentId;
-    private final int xCoordinate;
-    private final int yCoordinate;
+    private final Integer continentId;
+    private final Integer xCoordinate;
+    private final Integer yCoordinate;
     private Integer playerId;
-    private int armyCount;
+    private Integer armyCount;
 
     /**
      * @param id the id of the country
@@ -21,7 +21,8 @@ public class CountryEntity {
      * @param xCoordinate the x coordinate of the country
      * @param yCoordinate the y coordinate of the country
      */
-    public CountryEntity(int id, String name, int continentId, int xCoordinate, int yCoordinate) {
+    public CountryEntity(Integer id, String name, Integer continentId, Integer xCoordinate,
+            Integer yCoordinate) {
         this.id = id;
         this.name = name;
         this.continentId = continentId;
@@ -34,7 +35,7 @@ public class CountryEntity {
     /**
      * @return the id of the country
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -48,14 +49,14 @@ public class CountryEntity {
     /**
      * @return the id of the continent the country is in
      */
-    public int getContinentId() {
+    public Integer getContinentId() {
         return continentId;
     }
 
     /**
      * @return the x coordinate of the country
      */
-    public int getXCoordinate() {
+    public Integer getXCoordinate() {
         return xCoordinate;
     }
 
@@ -63,7 +64,7 @@ public class CountryEntity {
     /**
      * @return the y coordinate of the country
      */
-    public int getYCoordinate() {
+    public Integer getYCoordinate() {
         return yCoordinate;
     }
 
@@ -77,14 +78,14 @@ public class CountryEntity {
     /**
      * @return the army count of the country
      */
-    public int getArmyCount() {
+    public Integer getArmyCount() {
         return armyCount;
     }
 
     /**
      * @param playerId the id of the player who owns the country
      */
-    public void setPlayerId(int playerId) {
+    public void setPlayerId(Integer playerId) {
         this.playerId = playerId;
     }
 
@@ -93,5 +94,14 @@ public class CountryEntity {
      */
     public void incrementArmyCount() {
         this.armyCount++;
+    }
+
+    /**
+     * Checks if the country can attack from
+     *
+     * @return true if the country can attack from
+     */
+    public boolean canAttackFrom() {
+        return this.armyCount >= 2;
     }
 }

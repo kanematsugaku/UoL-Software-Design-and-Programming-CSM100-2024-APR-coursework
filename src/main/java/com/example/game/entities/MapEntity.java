@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * The entity represents a map.
  *
- * For more information see: https://domination.sourceforge.io/makemaps.shtml
+ * For more information @see: https://domination.sourceforge.io/makemaps.shtml
  */
 public class MapEntity {
     private String name;
@@ -114,20 +114,21 @@ public class MapEntity {
                     this.files.add(line);
                 }
                 case MapAttribute.Continents -> {
-                    int continentId = continents.size() + 1;
+                    Integer continentId = continents.size() + 1;
                     ContinentEntity continent = new ContinentEntity(continentId, lineParts[0],
-                            Integer.parseInt(lineParts[1]), lineParts[2]);
+                            Integer.valueOf(lineParts[1]), lineParts[2]);
                     this.continents.add(continent);
                 }
                 case MapAttribute.Countries -> {
-                    CountryEntity country = new CountryEntity(Integer.parseInt(lineParts[0]),
-                            lineParts[1], Integer.parseInt(lineParts[2]),
-                            Integer.parseInt(lineParts[3]), Integer.parseInt(lineParts[4]));
+                    CountryEntity country = new CountryEntity(Integer.valueOf(lineParts[0]),
+                            lineParts[1], Integer.valueOf(lineParts[2]),
+                            Integer.valueOf(lineParts[3]), Integer.valueOf(lineParts[4]));
                     this.countries.add(country);
                 }
                 case MapAttribute.Borders -> {
-                    BorderEntity border = new BorderEntity(Integer.parseInt(lineParts[0]),
-                            Arrays.stream(lineParts).skip(1).mapToInt(Integer::parseInt).toArray());
+                    BorderEntity border =
+                            new BorderEntity(Integer.valueOf(lineParts[0]), Arrays.stream(lineParts)
+                                    .skip(1).map(Integer::valueOf).toArray(Integer[]::new));
                     this.borders.add(border);
                 }
                 default -> {
@@ -143,7 +144,7 @@ public class MapEntity {
      * @return the countries owned by the player
      */
     public List<CountryEntity> getPlayerCountries(PlayerEntity player) {
-        return countries.stream().filter(country -> country.getPlayerId() == player.getId())
+        return countries.stream().filter(country -> country.getPlayerId().equals(player.getId()))
                 .toList();
     }
 
@@ -154,8 +155,8 @@ public class MapEntity {
      * @return the countries of the continent
      */
     public List<CountryEntity> getContinentCountries(ContinentEntity continent) {
-        return countries.stream().filter(country -> country.getContinentId() == continent.getId())
-                .toList();
+        return countries.stream()
+                .filter(country -> country.getContinentId().equals(continent.getId())).toList();
     }
 
     /**
@@ -164,8 +165,9 @@ public class MapEntity {
      * @param id the id
      * @return the country
      */
-    public CountryEntity getCountryById(int id) {
-        return countries.stream().filter(country -> country.getId() == id).findFirst().orElse(null);
+    public CountryEntity getCountryById(Integer id) {
+        return countries.stream().filter(country -> country.getId().equals(id)).findFirst()
+                .orElse(null);
     }
 
 
@@ -176,9 +178,8 @@ public class MapEntity {
      * @return the countries of the player with two or more armies
      */
     public List<CountryEntity> getPlayerCountriesWithTwoOrMoreArmies(PlayerEntity player) {
-        return countries.stream().filter(
-                country -> country.getPlayerId() == player.getId() && country.getArmyCount() >= 2)
-                .toList();
+        return countries.stream().filter(country -> country.getPlayerId().equals(player.getId())
+                && country.getArmyCount() >= 2).toList();
     }
 
     /**

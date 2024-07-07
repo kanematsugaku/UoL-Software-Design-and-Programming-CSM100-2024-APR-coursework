@@ -33,6 +33,7 @@ public class CountryPlayerAssignServiceImpl implements CountryPlayerAssignServic
         }
         countries.sort(Comparator.comparing(CountryEntity::getId));
 
+        PrintUtil.printSpace();
         PrintUtil.printLine("Countries assigned to players.");
     }
 }

@@ -31,6 +31,7 @@ public class MapInitServiceImpl implements MapInitService {
             throw new Exception("No map files found.");
         }
 
+        PrintUtil.printSpace();
         PrintUtil.printLine("Available maps:");
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
@@ -39,10 +40,11 @@ public class MapInitServiceImpl implements MapInitService {
         }
 
         File selectedFile = null;
-        int mapNumber = 0;
+        Integer mapNumber = 0;
         boolean isMapNumberValid = false;
 
         while (!isMapNumberValid) {
+            PrintUtil.printSpace();
             PrintUtil.printLine("Enter the number of the map you want to play: ");
             mapNumber = scanner.nextInt();
             if (mapNumber >= 0 && mapNumber < listOfFiles.length) {
