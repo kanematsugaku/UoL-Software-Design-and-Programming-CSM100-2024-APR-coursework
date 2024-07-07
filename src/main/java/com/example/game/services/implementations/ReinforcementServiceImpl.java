@@ -31,12 +31,12 @@ public class ReinforcementServiceImpl implements ReinforcementService {
     @Override
     public void reinforce(MapEntity map, PlayerEntity player) {
         Integer ownedCountryReinforcements = 0;
-        List<CountryEntity> playerCountries = map.getPlayerCountries(player);
+        List<CountryEntity> playerCountries = map.getCountriesByPlayer(player);
         ownedCountryReinforcements = Math.max(3, playerCountries.size() / 3);
 
         Integer ownedContinentReinforcements = 0;
         for (ContinentEntity continent : map.getContinents()) {
-            List<CountryEntity> continentCountries = map.getContinentCountries(continent);
+            List<CountryEntity> continentCountries = map.getCountriesByContinent(continent);
             if (playerCountries.containsAll(continentCountries)) {
                 ownedContinentReinforcements += continent.getArmyBonus();
             }

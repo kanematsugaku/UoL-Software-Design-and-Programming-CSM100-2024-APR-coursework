@@ -143,7 +143,7 @@ public class MapEntity {
      * @param player the player
      * @return the countries owned by the player
      */
-    public List<CountryEntity> getPlayerCountries(PlayerEntity player) {
+    public List<CountryEntity> getCountriesByPlayer(PlayerEntity player) {
         return countries.stream().filter(country -> country.getPlayerId().equals(player.getId()))
                 .toList();
     }
@@ -154,7 +154,7 @@ public class MapEntity {
      * @param continent the continent
      * @return the countries of the continent
      */
-    public List<CountryEntity> getContinentCountries(ContinentEntity continent) {
+    public List<CountryEntity> getCountriesByContinent(ContinentEntity continent) {
         return countries.stream()
                 .filter(country -> country.getContinentId().equals(continent.getId())).toList();
     }
@@ -177,7 +177,7 @@ public class MapEntity {
      * @param player the player
      * @return the countries of the player with two or more armies
      */
-    public List<CountryEntity> getPlayerCountriesWithTwoOrMoreArmies(PlayerEntity player) {
+    public List<CountryEntity> getCountriesByPlayerWithTwoOrMoreArmies(PlayerEntity player) {
         return countries.stream().filter(country -> country.getPlayerId().equals(player.getId())
                 && country.getArmyCount() >= 2).toList();
     }

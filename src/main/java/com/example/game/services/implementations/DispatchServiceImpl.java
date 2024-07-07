@@ -26,7 +26,7 @@ public class DispatchServiceImpl implements DispatchService {
      */
     @Override
     public void dispatch(Scanner scanner, MapEntity map, PlayerEntity player) {
-        List<CountryEntity> playerCountries = map.getPlayerCountries(player);
+        List<CountryEntity> playerCountries = map.getCountriesByPlayer(player);
 
         // Since the game rule requires at least 1 army to be placed in each country,
         // dispatch 1 army to each country automatically.
@@ -60,7 +60,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @param map the map
      */
     private void dispatchManually(Scanner scanner, PlayerEntity player, MapEntity map) {
-        List<CountryEntity> playerCountries = map.getPlayerCountries(player);
+        List<CountryEntity> playerCountries = map.getCountriesByPlayer(player);
 
         PrintUtil.printSpace();
         PrintUtil.printLine("You have " + player.getArmyCount() + " armies for dispatch.");
@@ -91,7 +91,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @param map the map
      */
     private void dispatchAutomatically(PlayerEntity player, MapEntity map) {
-        List<CountryEntity> playerCountries = map.getPlayerCountries(player);
+        List<CountryEntity> playerCountries = map.getCountriesByPlayer(player);
 
         Random random = new Random();
         Integer randomIndex = random.nextInt(playerCountries.size());

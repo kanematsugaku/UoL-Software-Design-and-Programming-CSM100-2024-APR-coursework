@@ -176,13 +176,13 @@ public class AttackServiceImpl implements AttackService {
             MapEntity map) {
         Map<CountryEntity, List<CountryEntity>> attackMap = new HashMap<>();
 
-        List<CountryEntity> playerAttackFromCountries =
-                map.getPlayerCountriesWithTwoOrMoreArmies(player);
+        List<CountryEntity> playerAttackerCountries =
+                map.getCountriesByPlayerWithTwoOrMoreArmies(player);
 
-        if (playerAttackFromCountries.isEmpty()) {
+        if (playerAttackerCountries.isEmpty()) {
             PrintUtil.printLine("You have no countries that can attack from.");
         } else {
-            for (CountryEntity attackerCountry : playerAttackFromCountries) {
+            for (CountryEntity attackerCountry : playerAttackerCountries) {
                 List<CountryEntity> adjacentCountries = map.getAdjacentCountries(attackerCountry);
                 for (CountryEntity adjacentCountry : adjacentCountries) {
                     if (adjacentCountry.getPlayerId() != player.getId()) {
