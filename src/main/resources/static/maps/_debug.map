@@ -6,18 +6,18 @@ name Debug Map
 [files]
 
 [continents]
-Area-A 12 blue
-Area-B 8 green
+Continent-1 12 blue
+Continent-2 8 green
 
 [countries]
-1 Block-1A 1 0 0
-2 Block-2A 1 0 0
-3 Block-3A 1 0 0
-4 Block-4A 1 0 0
-5 Block-5B 2 0 0
-6 Block-6B 2 0 0
-7 Block-7B 2 0 0
-8 Block-8B 2 0 0
+1 Country-1_in_Continent-1 1 0 0
+2 Country-2_in_Continent-1 1 0 0
+3 Country-3_in_Continent-1 1 0 0
+4 Country-4_in_Continent-1 1 0 0
+5 Country-5_in_Continent-2 2 0 0
+6 Country-6_in_Continent-2 2 0 0
+7 Country-7_in_Continent-2 2 0 0
+8 Country-8_in_Continent-2 2 0 0
 
 [borders]
 1 2 8

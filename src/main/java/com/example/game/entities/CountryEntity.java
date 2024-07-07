@@ -97,11 +97,18 @@ public class CountryEntity {
     }
 
     /**
+     * Decrements the army count by 1
+     */
+    public void decrementArmyCount() {
+        this.armyCount--;
+    }
+
+    /**
      * Checks if the country can attack from
      *
      * @return true if the country can attack from
      */
-    public boolean canAttackFrom() {
+    public boolean canAttack() {
         return this.armyCount >= 2;
     }
 }

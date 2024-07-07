@@ -1,5 +1,8 @@
 package com.example.game.util;
 
+/**
+ * Utility class for printing messages to the console
+ */
 public class PrintUtil {
   /**
    * Print arg in a line
@@ -48,17 +51,5 @@ public class PrintUtil {
    */
   public static void printSpace() {
     printSpace(1);
-  }
-
-  /**
-   * Clear screen
-   *
-   * Caution: Only works on Unix-like systems
-   *
-   * @see https://techno-terminal.blogspot.com/2014/12/clear-command-line-console-and-bold.html
-   */
-  public static void clearScreen() {
-    System.out.print("\033[H\033[2J");
-    System.out.flush();
   }
 }
