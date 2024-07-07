@@ -24,7 +24,7 @@ public class DispatchServiceImpl implements DispatchService {
      * @param player the player
      * @param map the map
      */
-    public void dispatch(Scanner scanner, PlayerEntity player, MapEntity map) {
+    public void dispatch(Scanner scanner, MapEntity map, PlayerEntity player) {
         List<CountryEntity> playerCountries = map.getPlayerCountries(player);
 
         // Since the game rule requires at least 1 army to be placed in each country,

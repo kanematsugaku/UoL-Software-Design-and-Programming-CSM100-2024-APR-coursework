@@ -12,6 +12,7 @@ import com.example.game.services.interfaces.AttackService;
 import com.example.game.services.interfaces.CountryPlayerAssignService;
 import com.example.game.services.interfaces.DispatchService;
 import com.example.game.services.interfaces.DisplayMapService;
+import com.example.game.services.interfaces.FortificationService;
 import com.example.game.services.interfaces.MapInitService;
 import com.example.game.services.interfaces.MessageService;
 import com.example.game.services.interfaces.PlayerInitService;
@@ -33,6 +34,7 @@ public class GameApplication implements CommandLineRunner {
     private final ReinforcementService reinforcementService;
     private final DispatchService dispatchService;
     private final AttackService attackService;
+    private final FortificationService fortificationService;
     private boolean isGameEnded = false;
 
     @Autowired
@@ -40,7 +42,7 @@ public class GameApplication implements CommandLineRunner {
             PlayerInitService playerInitService, DisplayMapService displayMapService,
             CountryPlayerAssignService countryPlayerAssignService,
             ReinforcementService reinforcementService, DispatchService dispatchService,
-            AttackService attackService) {
+            AttackService attackService, FortificationService fortificationService) {
         this.messageService = messageService;
         this.mapInitService = mapInitService;
         this.playerInitService = playerInitService;
@@ -49,6 +51,7 @@ public class GameApplication implements CommandLineRunner {
         this.reinforcementService = reinforcementService;
         this.dispatchService = dispatchService;
         this.attackService = attackService;
+        this.fortificationService = fortificationService;
     }
 
     public static void main(String[] args) {
@@ -76,15 +79,16 @@ public class GameApplication implements CommandLineRunner {
                 // 2-1. The reinforcement phase
                 for (PlayerEntity player : players) {
                     displayMapService.display(map, players);
-                    reinforcementService.reinforce(player, map);
-                    dispatchService.dispatch(scanner, player, map);
+                    reinforcementService.reinforce(map, player);
+                    dispatchService.dispatch(scanner, map, player);
                 }
 
                 // 2-2. The attack phase
                 for (PlayerEntity player : players) {
                     displayMapService.display(map, players);
-                    attackService.attack(scanner, player, map);
+                    attackService.attack(scanner, map, player);
                     displayMapService.display(map, players);
+                    fortificationService.fortify(scanner, map, player);
                 }
 
                 isGameEnded = true;

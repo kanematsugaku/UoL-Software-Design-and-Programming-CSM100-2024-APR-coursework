@@ -82,12 +82,15 @@ class CountryEntityTest {
 
     @Test
     void testDecrementArmyCount() {
+        countryEntity.incrementArmyCount();
+        countryEntity.incrementArmyCount();
+        countryEntity.incrementArmyCount();
         countryEntity.decrementArmyCount();
-        assertEquals(0, countryEntity.getArmyCount());
+        assertEquals(2, countryEntity.getArmyCount());
     }
 
     @Test
-    void testCanAttackFrom() {
+    void testCanAttack() {
         countryEntity.incrementArmyCount();
         countryEntity.incrementArmyCount();
         assertTrue(countryEntity.canAttack());

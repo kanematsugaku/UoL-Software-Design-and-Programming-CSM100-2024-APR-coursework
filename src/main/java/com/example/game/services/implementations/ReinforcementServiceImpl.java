@@ -25,10 +25,10 @@ public class ReinforcementServiceImpl implements ReinforcementService {
     /**
      * Reinforces the armies of a player
      *
-     * @param player the player
      * @param map the map
+     * @param player the player
      */
-    public void reinforce(PlayerEntity player, MapEntity map) {
+    public void reinforce(MapEntity map, PlayerEntity player) {
         Integer ownedCountryReinforcements = 0;
         List<CountryEntity> playerCountries = map.getPlayerCountries(player);
         ownedCountryReinforcements = Math.max(3, playerCountries.size() / 3);
