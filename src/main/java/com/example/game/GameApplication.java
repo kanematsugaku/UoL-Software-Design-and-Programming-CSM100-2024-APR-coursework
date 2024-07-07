@@ -1,7 +1,6 @@
 package com.example.game;
 
 import java.util.List;
-import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +19,7 @@ import com.example.game.services.interfaces.MessageService;
 import com.example.game.services.interfaces.PlayerInitService;
 import com.example.game.services.interfaces.ReinforcementService;
 import com.example.game.services.interfaces.RemovePlayerService;
+import com.example.game.util.ScannerUtil;
 
 /**
  * The entry point class for the game application.
@@ -71,16 +71,14 @@ public class GameApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Scanner scanner = new Scanner(System.in);
-
         try {
             messageService.showWelcomeMessage();
 
             // -----------------
             // 1. Startup phase
             // -----------------
-            map = mapInitService.init(scanner);
-            players = playerInitService.init(scanner);
+            map = mapInitService.init();
+            players = playerInitService.init();
             countryPlayerAssignService.assign(map, players);
 
             // --------------------
@@ -91,20 +89,20 @@ public class GameApplication implements CommandLineRunner {
                 for (PlayerEntity player : players) {
                     displayMapService.display(map, players);
                     reinforcementService.reinforce(map, player);
-                    dispatchService.dispatch(scanner, map, player);
+                    dispatchService.dispatch(map, player);
                 }
 
                 // 2-2. The attack phase
                 for (PlayerEntity player : players) {
                     displayMapService.display(map, players);
-                    attackService.attack(scanner, map, player);
+                    attackService.attack(map, player);
 
                 }
 
                 // 2-3. The fortification phase
                 for (PlayerEntity player : players) {
                     displayMapService.display(map, players);
-                    fortificationService.fortify(scanner, map, player);
+                    fortificationService.fortify(map, player);
                 }
 
                 // 2-4. Turn-ending phase
@@ -120,7 +118,7 @@ public class GameApplication implements CommandLineRunner {
         } catch (Exception e) {
             messageService.showExceptionMessage(e);
         } finally {
-            scanner.close();
+            ScannerUtil.dispose();
             messageService.showClosingMessage();
         }
     }

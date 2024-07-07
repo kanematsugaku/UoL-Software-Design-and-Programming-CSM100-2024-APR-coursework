@@ -2,11 +2,11 @@ package com.example.game.services.implementations;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Scanner;
 import org.springframework.stereotype.Service;
 import com.example.game.entities.MapEntity;
 import com.example.game.services.interfaces.MapInitService;
 import com.example.game.util.PrintUtil;
+import com.example.game.util.ScannerUtil;
 
 /**
  * The service for loading the map from text map files.
@@ -18,12 +18,11 @@ public class MapInitServiceImpl implements MapInitService {
     /**
      * Load a map from the text map file then set the loaded value to the map entity
      *
-     * @param scanner The scanner.
      * @return The map entity.
      * @throws Exception
      */
     @Override
-    public MapEntity init(Scanner scanner) throws Exception {
+    public MapEntity init() throws Exception {
         File folder = new File(MAPS_FOLDER_PATH);
         File[] listOfFiles = folder.listFiles();
         Arrays.sort(listOfFiles, (a, b) -> a.getName().compareTo(b.getName()));
@@ -45,9 +44,8 @@ public class MapInitServiceImpl implements MapInitService {
         boolean isMapNumberValid = false;
 
         while (!isMapNumberValid) {
-            PrintUtil.printSpace();
-            PrintUtil.printLine("Enter the number of the map you want to play: ");
-            mapNumber = scanner.nextInt();
+            mapNumber = ScannerUtil.scanInt("Enter the number of the map you want to play: ",
+                    "Invalid map number.");
             if (mapNumber >= 0 && mapNumber < listOfFiles.length) {
                 isMapNumberValid = true;
             } else {

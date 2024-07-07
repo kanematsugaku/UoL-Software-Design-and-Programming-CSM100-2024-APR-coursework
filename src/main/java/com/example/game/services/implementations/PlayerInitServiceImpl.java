@@ -3,12 +3,12 @@ package com.example.game.services.implementations;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 import org.springframework.stereotype.Service;
 import com.example.game.entities.PlayerEntity;
 import com.example.game.entities.PlayerEntity.PlayerType;
 import com.example.game.services.interfaces.PlayerInitService;
 import com.example.game.util.PrintUtil;
+import com.example.game.util.ScannerUtil;
 
 /**
  * The service for initializing players.
@@ -22,18 +22,16 @@ public class PlayerInitServiceImpl implements PlayerInitService {
     /**
      * Initializes the players.
      *
-     * @param scanner The scanner.
      * @return The list of player entities.
      */
     @Override
-    public List<PlayerEntity> init(Scanner scanner) {
+    public List<PlayerEntity> init() {
         Integer playerCount = 0;
         boolean isPlayerCountValid = false;
 
         while (!isPlayerCountValid) {
-            PrintUtil.printSpace();
-            PrintUtil.printLine("Enter the number of players: ");
-            playerCount = scanner.nextInt();
+            playerCount =
+                    ScannerUtil.scanInt("Enter the number of players: ", "Invalid player count.");
             if (playerCount.equals(AVAILABLE_PLAYER_COUNT)) {
                 isPlayerCountValid = true;
             } else {
@@ -45,19 +43,9 @@ public class PlayerInitServiceImpl implements PlayerInitService {
         List<PlayerEntity> players = new ArrayList<>();
 
         for (int i = 0; i < playerCount; i++) {
-            String playerName = "";
-            boolean isPlayerNameValid = false;
-
-            while (!isPlayerNameValid) {
-                PrintUtil.printSpace();
-                PrintUtil.printLine("Enter the name of the player " + (i + 1) + ": ");
-                playerName = scanner.next();
-                if (!playerName.isEmpty()) {
-                    isPlayerNameValid = true;
-                } else {
-                    PrintUtil.printLine("Player name cannot be empty.");
-                }
-            }
+            String playerName =
+                    ScannerUtil.scanString("Enter the name of the player " + (i + 1) + ": ",
+                            "Player name cannot be empty.");
 
             PlayerType type = i == 0 ? PlayerType.Human : PlayerType.Computer;
             PlayerEntity player = new PlayerEntity(i, playerName, INITIAL_ARMY_COUNT, type);

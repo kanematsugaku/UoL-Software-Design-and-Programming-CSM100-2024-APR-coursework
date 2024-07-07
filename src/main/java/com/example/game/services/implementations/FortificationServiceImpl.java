@@ -1,6 +1,5 @@
 package com.example.game.services.implementations;
 
-import java.util.Scanner;
 import org.springframework.stereotype.Service;
 import com.example.game.entities.MapEntity;
 import com.example.game.entities.PlayerEntity;
@@ -15,14 +14,13 @@ public class FortificationServiceImpl implements FortificationService {
     /**
      * Fortifies a country.
      *
-     * @param scanner the scanner
      * @param map the map
      * @param player the player
      */
     @Override
-    public void fortify(Scanner scanner, MapEntity map, PlayerEntity player) {
+    public void fortify(MapEntity map, PlayerEntity player) {
         if (player.getType().equals(PlayerEntity.PlayerType.Human)) {
-            fortifyManually(scanner, player, map);
+            fortifyManually(player, map);
         } else {
             fortifyAutomatically(player, map);
         }
@@ -32,11 +30,10 @@ public class FortificationServiceImpl implements FortificationService {
     /**
      * Fortifies a country manually by the player.
      *
-     * @param scanner the scanner
      * @param player the player
      * @param map
      */
-    public void fortifyManually(Scanner scanner, PlayerEntity player, MapEntity map) {
+    public void fortifyManually(PlayerEntity player, MapEntity map) {
         // TODO: Implement
     }
 

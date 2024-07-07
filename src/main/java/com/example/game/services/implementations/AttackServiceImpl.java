@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 import org.springframework.stereotype.Service;
 import com.example.game.entities.CountryEntity;
 import com.example.game.entities.MapEntity;
@@ -15,6 +14,7 @@ import com.example.game.services.interfaces.AttackService;
 import com.example.game.util.DiceUtil;
 import com.example.game.util.PrintUtil;
 import com.example.game.util.RandomUtil;
+import com.example.game.util.ScannerUtil;
 
 /**
  * The service for attacking countries.
@@ -27,14 +27,13 @@ public class AttackServiceImpl implements AttackService {
     /**
      * Attacks a country.
      *
-     * @param scanner the scanner
      * @param player the player
      * @param map the map
      */
     @Override
-    public void attack(Scanner scanner, MapEntity map, PlayerEntity player) {
+    public void attack(MapEntity map, PlayerEntity player) {
         if (player.getType().equals(PlayerEntity.PlayerType.Human)) {
-            attackManually(scanner, player, map);
+            attackManually(player, map);
         } else {
             attackAutomatically(player, map);
         }
@@ -44,11 +43,10 @@ public class AttackServiceImpl implements AttackService {
     /**
      * Attacks a country manually by the player.
      *
-     * @param scanner the scanner
      * @param player the player
      * @param map the map
      */
-    private void attackManually(Scanner scanner, PlayerEntity player, MapEntity map) {
+    private void attackManually(PlayerEntity player, MapEntity map) {
         while (true) {
             Map<CountryEntity, List<CountryEntity>> attackMap = generateAttackMap(player, map);
             if (attackMap.isEmpty()) {
@@ -59,9 +57,7 @@ public class AttackServiceImpl implements AttackService {
             PrintUtil.printLine("You can attack from/to the following countries.");
             showAttackMap(attackMap);
 
-            PrintUtil.printSpace();
-            PrintUtil.printLine("Do you want to attack? [y/n]: ");
-            String answerForAttack = scanner.next();
+            String answerForAttack = ScannerUtil.scanString("Do you want to attack? [y/n]: ");
 
             if (answerForAttack.equals("n") || answerForAttack.equals("N")) {
                 PrintUtil.printLine("Attack ended.");
@@ -71,9 +67,8 @@ public class AttackServiceImpl implements AttackService {
             if (answerForAttack.equals("y") || answerForAttack.equals("Y")) {
                 PrintUtil.printLine("You can attack from/to the following countries.");
                 showAttackMap(attackMap);
-                PrintUtil.printSpace();
-                PrintUtil.printLine("Enter your country number to attack from: ");
-                Integer attackerCountryNumber = scanner.nextInt();
+                Integer attackerCountryNumber = ScannerUtil.scanInt(
+                        "Enter your country number to attack from: ", "Invalid country number.");
                 CountryEntity attackerCountry = map.getCountryById(attackerCountryNumber);
                 boolean isPlayerOwnCountry = attackerCountry.getPlayerId().equals(player.getId());
                 if (!isPlayerOwnCountry) {
@@ -86,9 +81,8 @@ public class AttackServiceImpl implements AttackService {
                     break;
                 }
 
-                PrintUtil.printSpace();
-                PrintUtil.printLine("Enter opponent country number to attack to: ");
-                Integer defenderCountryNumber = scanner.nextInt();
+                Integer defenderCountryNumber = ScannerUtil.scanInt(
+                        "Enter opponent country number to attack to: ", "Invalid country number.");
                 CountryEntity defenderCountry = map.getCountryById(defenderCountryNumber);
                 boolean isPlayerNotOwnCountry =
                         !defenderCountry.getPlayerId().equals(player.getId());
@@ -113,10 +107,8 @@ public class AttackServiceImpl implements AttackService {
                         }
 
                         while (true) {
-                            PrintUtil.printSpace();
-                            PrintUtil.printLine(
+                            String answerForAttackAgain = ScannerUtil.scanString(
                                     "Do you want to attack again to the same country? [y/n]: ");
-                            String answerForAttackAgain = scanner.next();
                             if (answerForAttackAgain.equals("n")
                                     || answerForAttackAgain.equals("N")) {
                                 break rollDiceLoop;

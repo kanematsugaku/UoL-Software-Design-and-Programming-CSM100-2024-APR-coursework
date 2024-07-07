@@ -2,13 +2,13 @@ package com.example.game.services.implementations;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 import org.springframework.stereotype.Service;
 import com.example.game.entities.CountryEntity;
 import com.example.game.entities.MapEntity;
 import com.example.game.entities.PlayerEntity;
 import com.example.game.services.interfaces.DispatchService;
 import com.example.game.util.PrintUtil;
+import com.example.game.util.ScannerUtil;
 
 /**
  * The service that handles the dispatch.
@@ -20,12 +20,11 @@ public class DispatchServiceImpl implements DispatchService {
     /**
      * Dispatches armies to a country
      *
-     * @param scanner the scanner
      * @param player the player
      * @param map the map
      */
     @Override
-    public void dispatch(Scanner scanner, MapEntity map, PlayerEntity player) {
+    public void dispatch(MapEntity map, PlayerEntity player) {
         List<CountryEntity> playerCountries = map.getCountriesByPlayer(player);
 
         // Since the game rule requires at least 1 army to be placed in each country,
@@ -38,7 +37,7 @@ public class DispatchServiceImpl implements DispatchService {
         // Dispatch armies to countries manually by the player.
         while (player.getArmyCount() > 0) {
             if (player.getType().equals(PlayerEntity.PlayerType.Human)) {
-                dispatchManually(scanner, player, map);
+                dispatchManually(player, map);
             } else {
                 dispatchAutomatically(player, map);
             }
@@ -55,11 +54,10 @@ public class DispatchServiceImpl implements DispatchService {
     /**
      * Dispatches armies to a country manually by the player.
      *
-     * @param scanner the scanner
      * @param player the player
      * @param map the map
      */
-    private void dispatchManually(Scanner scanner, PlayerEntity player, MapEntity map) {
+    private void dispatchManually(PlayerEntity player, MapEntity map) {
         List<CountryEntity> playerCountries = map.getCountriesByPlayer(player);
 
         PrintUtil.printSpace();
@@ -72,7 +70,9 @@ public class DispatchServiceImpl implements DispatchService {
 
         PrintUtil.printSpace();
         PrintUtil.printLine("Enter the number of country to dispatch 1 army to:");
-        Integer countryId = scanner.nextInt();
+
+        Integer countryId = ScannerUtil.scanInt(
+                "Enter the number of country to dispatch 1 army to: ", "Invalid country number.");
 
         CountryEntity country = map.getCountryById(countryId);
         if (!playerCountries.contains(country)) {
