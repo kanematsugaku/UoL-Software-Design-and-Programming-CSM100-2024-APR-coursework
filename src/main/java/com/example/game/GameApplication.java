@@ -11,6 +11,7 @@ import com.example.game.entities.PlayerEntity;
 import com.example.game.services.interfaces.AttackService;
 import com.example.game.services.interfaces.CountryPlayerAssignService;
 import com.example.game.services.interfaces.DispatchService;
+import com.example.game.services.interfaces.DisplayMapService;
 import com.example.game.services.interfaces.MapInitService;
 import com.example.game.services.interfaces.MessageService;
 import com.example.game.services.interfaces.PlayerInitService;
@@ -27,6 +28,7 @@ public class GameApplication implements CommandLineRunner {
     private final MessageService messageService;
     private final MapInitService mapInitService;
     private final PlayerInitService playerInitService;
+    private final DisplayMapService displayMapService;
     private final CountryPlayerAssignService countryPlayerAssignService;
     private final ReinforcementService reinforcementService;
     private final DispatchService dispatchService;
@@ -35,13 +37,14 @@ public class GameApplication implements CommandLineRunner {
 
     @Autowired
     public GameApplication(MessageService messageService, MapInitService mapInitService,
-            PlayerInitService playerInitService,
+            PlayerInitService playerInitService, DisplayMapService displayMapService,
             CountryPlayerAssignService countryPlayerAssignService,
             ReinforcementService reinforcementService, DispatchService dispatchService,
             AttackService attackService) {
         this.messageService = messageService;
         this.mapInitService = mapInitService;
         this.playerInitService = playerInitService;
+        this.displayMapService = displayMapService;
         this.countryPlayerAssignService = countryPlayerAssignService;
         this.reinforcementService = reinforcementService;
         this.dispatchService = dispatchService;
@@ -72,13 +75,16 @@ public class GameApplication implements CommandLineRunner {
             while (!isGameEnded) {
                 // 2-1. The reinforcement phase
                 for (PlayerEntity player : players) {
+                    displayMapService.display(map, players);
                     reinforcementService.reinforce(player, map);
                     dispatchService.dispatch(scanner, player, map);
                 }
 
                 // 2-2. The attack phase
                 for (PlayerEntity player : players) {
+                    displayMapService.display(map, players);
                     attackService.attack(scanner, player, map);
+                    displayMapService.display(map, players);
                 }
 
                 isGameEnded = true;
