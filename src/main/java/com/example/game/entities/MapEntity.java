@@ -82,57 +82,52 @@ public class MapEntity {
             }
 
             switch (line) {
-                case "[files]" -> {
+                case "[files]":
                     processingAttribute = MapAttribute.Files;
                     continue;
-                }
-                case "[continents]" -> {
+                case "[continents]":
                     processingAttribute = MapAttribute.Continents;
                     continue;
-                }
-                case "[countries]" -> {
+                case "[countries]":
                     processingAttribute = MapAttribute.Countries;
                     continue;
-                }
-                case "[borders]" -> {
+                case "[borders]":
                     processingAttribute = MapAttribute.Borders;
                     continue;
-                }
-                default -> {
-                }
+                default:
             }
 
             String[] lineParts = line.split(" ");
 
             switch (processingAttribute) {
-                case MapAttribute.Name -> {
+                case Name:
                     if (line.startsWith("name")) {
                         this.name = lineParts[1];
                     }
-                }
-                case MapAttribute.Files -> {
+                    break;
+                case Files:
                     this.files.add(line);
-                }
-                case MapAttribute.Continents -> {
+                    break;
+                case Continents:
                     Integer continentId = continents.size() + 1;
                     ContinentEntity continent = new ContinentEntity(continentId, lineParts[0],
                             Integer.valueOf(lineParts[1]), lineParts[2]);
                     this.continents.add(continent);
-                }
-                case MapAttribute.Countries -> {
+                    break;
+                case Countries:
                     CountryEntity country = new CountryEntity(Integer.valueOf(lineParts[0]),
                             lineParts[1], Integer.valueOf(lineParts[2]),
                             Integer.valueOf(lineParts[3]), Integer.valueOf(lineParts[4]));
                     this.countries.add(country);
-                }
-                case MapAttribute.Borders -> {
+                    break;
+                case Borders:
                     BorderEntity border =
                             new BorderEntity(Integer.valueOf(lineParts[0]), Arrays.stream(lineParts)
                                     .skip(1).map(Integer::valueOf).toArray(Integer[]::new));
                     this.borders.add(border);
-                }
-                default -> {
-                }
+                    break;
+                default:
+                    break;
             }
         }
     }
