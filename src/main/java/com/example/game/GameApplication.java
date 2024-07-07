@@ -113,8 +113,7 @@ public class GameApplication implements CommandLineRunner {
             // ---------------------
             // 3. The endgame phase
             // ---------------------
-            displayMapService.display(map, players);
-            celebrateService.celebrate(players);
+            celebrateService.celebrate(map, players);
         } catch (Exception e) {
             messageService.showExceptionMessage(e);
         } finally {

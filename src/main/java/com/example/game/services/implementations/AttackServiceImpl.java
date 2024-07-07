@@ -93,17 +93,15 @@ public class AttackServiceImpl implements AttackService {
 
                 rollDiceLoop: {
                     while (true) {
-                        battle(attackerCountry, defenderCountry, map);
-
-                        if (defenderCountry.getArmyCount() == 0
-                                || attackerCountry.getArmyCount() == 0) {
-                            break rollDiceLoop;
+                        boolean isDominated = battle(attackerCountry, defenderCountry, map);
+                        if (isDominated) {
+                            break;
                         }
 
                         if (!attackerCountry.canAttack()) {
                             PrintUtil.printLine(
                                     "Your country has no armies to attack. Two or more armies are required to attack.");
-                            break rollDiceLoop;
+                            break;
                         }
 
                         while (true) {
@@ -224,8 +222,9 @@ public class AttackServiceImpl implements AttackService {
      * @param attackerCountry the attacker country
      * @param defenderCountry the defender country
      * @param map the map
+     * @return true if the attacker or defender dominates the other country
      */
-    private void battle(CountryEntity attackerCountry, CountryEntity defenderCountry,
+    private boolean battle(CountryEntity attackerCountry, CountryEntity defenderCountry,
             MapEntity map) {
         int attackerCountryArmyCount = attackerCountry.getArmyCount();
         int attackerCountryDiceCount =
@@ -277,7 +276,9 @@ public class AttackServiceImpl implements AttackService {
         PrintUtil.printLine("Opponent country armies: " + defenderCountry.getArmyCount());
 
         // When either country dominates the other
-        if (defenderCountry.getArmyCount() == 0 || attackerCountry.getArmyCount() == 0) {
+        boolean isDominated =
+                defenderCountry.getArmyCount() == 0 || attackerCountry.getArmyCount() == 0;
+        if (isDominated) {
             CountryEntity wonCountry = null;
             CountryEntity lostCountry = null;
 
@@ -298,5 +299,7 @@ public class AttackServiceImpl implements AttackService {
                 lostCountry.incrementArmyCount();
             }
         }
+
+        return isDominated;
     }
 }

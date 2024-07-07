@@ -13,18 +13,14 @@ Continent-2 24 green
 1 Country-1_in_Continent-1 1 0 0
 2 Country-2_in_Continent-1 1 0 0
 3 Country-3_in_Continent-1 1 0 0
-4 Country-4_in_Continent-1 1 0 0
+4 Country-4_in_Continent-2 2 0 0
 5 Country-5_in_Continent-2 2 0 0
 6 Country-6_in_Continent-2 2 0 0
-7 Country-7_in_Continent-2 2 0 0
-8 Country-8_in_Continent-2 2 0 0
 
 [borders]
-1 2 8
+1 2 6
 2 1 3
 3 2 4
 4 3 5
 5 4 6
-6 5 7
-7 6 8
-8 7 1
+6 5 1

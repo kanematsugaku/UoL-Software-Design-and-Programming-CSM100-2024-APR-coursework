@@ -32,7 +32,6 @@ public class DisplayMapServiceImpl implements DisplayMapService {
                                 .sorted(Comparator.comparing(ContinentEntity::getId)).toList();
 
                 for (ContinentEntity continent : sortedContinents) {
-
                         PrintUtil.printLine("=== Continent: " + continent.getName() + " ===");
 
                         List<CountryEntity> sortedCountries = map.getCountries().stream()

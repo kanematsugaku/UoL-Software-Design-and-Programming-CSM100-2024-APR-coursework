@@ -1,5 +1,6 @@
 package com.example.game.services.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.example.game.entities.CountryEntity;
@@ -20,6 +21,8 @@ public class RemovePlayerServiceImpl implements RemovePlayerService {
      */
     @Override
     public void remove(MapEntity map, List<PlayerEntity> players) {
+        List<PlayerEntity> playersToRemove = new ArrayList<>();
+
         for (PlayerEntity player : players) {
             boolean isPlayerOwnsCountry = false;
 
@@ -31,8 +34,10 @@ public class RemovePlayerServiceImpl implements RemovePlayerService {
             }
 
             if (!isPlayerOwnsCountry) {
-                players.remove(player);
+                playersToRemove.add(player);
             }
         }
+
+        players.removeAll(playersToRemove);
     }
 }

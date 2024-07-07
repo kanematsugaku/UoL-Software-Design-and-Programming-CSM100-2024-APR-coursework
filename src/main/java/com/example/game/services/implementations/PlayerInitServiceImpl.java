@@ -1,7 +1,6 @@
 package com.example.game.services.implementations;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import com.example.game.entities.PlayerEntity;
@@ -57,6 +56,6 @@ public class PlayerInitServiceImpl implements PlayerInitService {
             PrintUtil.printLine("Player " + (i + 1) + " name: " + players.get(i).getName());
         }
 
-        return Collections.unmodifiableList(new ArrayList<>(players));
+        return players;
     }
 }
