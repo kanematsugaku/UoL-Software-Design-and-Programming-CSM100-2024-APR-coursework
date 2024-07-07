@@ -51,7 +51,14 @@ public class DispatchServiceImpl implements DispatchService {
         }
     }
 
-    void dispatchManually(Scanner scanner, PlayerEntity player, MapEntity map) {
+    /**
+     * Dispatches armies to a country manually by the player.
+     *
+     * @param scanner the scanner
+     * @param player the player
+     * @param map the map
+     */
+    private void dispatchManually(Scanner scanner, PlayerEntity player, MapEntity map) {
         List<CountryEntity> playerCountries = map.getPlayerCountries(player);
 
         PrintUtil.printSpace();
@@ -76,7 +83,13 @@ public class DispatchServiceImpl implements DispatchService {
         player.decrementArmyCount();
     }
 
-    void dispatchAutomatically(PlayerEntity player, MapEntity map) {
+    /**
+     * Dispatches armies to a country automatically by the computer.
+     *
+     * @param player the player
+     * @param map the map
+     */
+    private void dispatchAutomatically(PlayerEntity player, MapEntity map) {
         List<CountryEntity> playerCountries = map.getPlayerCountries(player);
 
         Random random = new Random();

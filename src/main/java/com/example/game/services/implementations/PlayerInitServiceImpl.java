@@ -58,7 +58,7 @@ public class PlayerInitServiceImpl implements PlayerInitService {
                 }
             }
 
-            PlayerType type = i == 0 ? PlayerType.Human : PlayerType.AI;
+            PlayerType type = i == 0 ? PlayerType.Human : PlayerType.Computer;
             PlayerEntity player = new PlayerEntity(i, playerName, INITIAL_ARMY_COUNT, type);
             players.add(player);
         }

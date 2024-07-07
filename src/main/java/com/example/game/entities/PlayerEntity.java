@@ -10,7 +10,7 @@ public class PlayerEntity {
     private PlayerType type;
 
     public enum PlayerType {
-        Human, AI,
+        Human, Computer,
     }
 
     /**
