@@ -25,7 +25,9 @@ public class CelebrateServiceImpl implements CelebrateService {
         if (players.size() != 1) {
             throw new IllegalArgumentException("players:" + players);
         }
+
         PlayerEntity winnerPlayer = players.get(0);
+        PrintUtil.printSpace();
         PrintUtil.printImportantMessage(
                 "Congratulations, " + winnerPlayer.getName() + " won the game!!");
         PrintUtil.printLine("This is the final map:");

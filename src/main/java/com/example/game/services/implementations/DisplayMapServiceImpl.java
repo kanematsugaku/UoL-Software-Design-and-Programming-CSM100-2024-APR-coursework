@@ -26,7 +26,6 @@ public class DisplayMapServiceImpl implements DisplayMapService {
         public void display(MapEntity map, List<PlayerEntity> players) {
                 PrintUtil.printSpace();
                 PrintUtil.printImportantMessage("Map");
-                PrintUtil.printSpace();
 
                 List<ContinentEntity> sortedContinents = map.getContinents().stream()
                                 .sorted(Comparator.comparing(ContinentEntity::getId)).toList();
