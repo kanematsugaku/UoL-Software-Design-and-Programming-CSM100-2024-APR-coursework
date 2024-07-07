@@ -97,13 +97,13 @@ public class AttackServiceImpl implements AttackService {
 
                         if (defenderCountry.getArmyCount() == 0
                                 || attackerCountry.getArmyCount() == 0) {
-                            break;
+                            break rollDiceLoop;
                         }
 
                         if (!attackerCountry.canAttack()) {
                             PrintUtil.printLine(
                                     "Your country has no armies to attack. Two or more armies are required to attack.");
-                            break;
+                            break rollDiceLoop;
                         }
 
                         while (true) {
@@ -276,13 +276,27 @@ public class AttackServiceImpl implements AttackService {
         PrintUtil.printLine("Your country armies    : " + attackerCountry.getArmyCount());
         PrintUtil.printLine("Opponent country armies: " + defenderCountry.getArmyCount());
 
-        if (defenderCountry.getArmyCount() == 0) {
-            PrintUtil.printLine("Your dominate the opponent country.");
-            defenderCountry.setPlayerId(attackerCountry.getPlayerId());
-        }
-        if (attackerCountry.getArmyCount() == 0) {
-            PrintUtil.printLine("Opponent dominate your country.");
-            attackerCountry.setPlayerId(defenderCountry.getPlayerId());
+        // When either country dominates the other
+        if (defenderCountry.getArmyCount() == 0 || attackerCountry.getArmyCount() == 0) {
+            CountryEntity wonCountry = null;
+            CountryEntity lostCountry = null;
+
+            if (defenderCountry.getArmyCount() == 0) {
+                PrintUtil.printLine("Your dominate the opponent country.");
+                wonCountry = attackerCountry;
+                lostCountry = defenderCountry;
+            }
+            if (attackerCountry.getArmyCount() == 0) {
+                PrintUtil.printLine("Opponent dominate your country.");
+                wonCountry = defenderCountry;
+                lostCountry = attackerCountry;
+            }
+
+            lostCountry.setPlayerId(wonCountry.getPlayerId());
+            for (int i = 0; i < attackerCountryDiceCount; i++) {
+                wonCountry.decrementArmyCount();
+                lostCountry.incrementArmyCount();
+            }
         }
     }
 }

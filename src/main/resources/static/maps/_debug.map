@@ -6,8 +6,8 @@ name Debug Map
 [files]
 
 [continents]
-Continent-1 12 blue
-Continent-2 8 green
+Continent-1 32 blue
+Continent-2 24 green
 
 [countries]
 1 Country-1_in_Continent-1 1 0 0
